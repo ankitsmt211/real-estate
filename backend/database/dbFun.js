@@ -1,5 +1,21 @@
 const mongoose = require('mongoose');
 const usermodel=require('./models/user');
+const jwt = require('jsonwebtoken');
+const secretKey ="1fN9OhrYCu27bOnzNWT";
+
+let tokenUser = (user) => {  
+    let token=jwt.sign(user.toJSON(),secretKey);   
+    return token;
+}
+let authUser=(token)=>{ 
+    try {
+       
+    let data=jwt.verify(token,secretKey);  
+    return {status:"success",user:data}
+    } catch (error) {
+        return {status:"failed",error:error}  
+    }
+}
 
 let registerUser=async(data)=>{
     try {
@@ -16,13 +32,14 @@ let loginUser=async(data)=>{
             return {status:"failed",message:"User not found"}            
         }
         
-        return {status:"success",data:user}   
+        let auth=tokenUser(user);
+        return {status:"success",token:auth,data:user}   
             
     } catch (error) {
         return {status:"failed",message:"Internal error",error:error}
     }    
 }
-module.exports={registerUser,loginUser}
+module.exports={registerUser,loginUser,authUser}
 
 
 
