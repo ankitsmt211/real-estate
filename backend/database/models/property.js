@@ -21,8 +21,7 @@ const propertySchema = new mongoose.Schema({
         attached:Boolean,
         furnished:{
             type:String,
-            enum:['Fully','Semi','Unfurnished'],
-            default:'unfurnished'
+            enum:['Fully','Semi','Unfurnished']
         },
         list:Boolean,
         facing:String,
