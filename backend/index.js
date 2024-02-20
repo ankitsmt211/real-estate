@@ -1,11 +1,13 @@
 const express = require('express')
 const userRoutes = require('../backend/routes/user')
+const propertyRoutes = require('../backend/routes/property')
 const mongoose = require('mongoose')
 
 const app = express()
 
 app.use(express.json())
 app.use(userRoutes)
+app.use(propertyRoutes)
 const PORT = 8080
 
 app.get('/hello-server',(req,res)=>{

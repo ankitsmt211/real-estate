@@ -21,8 +21,7 @@ const propertySchema = new mongoose.Schema({
         attached:Boolean,
         furnished:{
             type:String,
-            enum:['Fully','Semi','Unfurnished'],
-            default:'unfurnished'
+            enum:['Fully','Semi','Unfurnished']
         },
         list:Boolean,
         facing:String,
@@ -50,7 +49,9 @@ const propertySchema = new mongoose.Schema({
         pincode:String,
         landmark:String,
         longitude:Number
-    }
+    },
+    owner:{type:mongoose.Types.ObjectId, ref:'User'},
+    imageUrl:String
 })
 
 const propertyModel = mongoose.model('property',propertySchema)
