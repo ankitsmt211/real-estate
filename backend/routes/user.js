@@ -11,11 +11,11 @@ router.post('/register',async(req,res)=>{
         }
             res.status(200).json(user);         
     } catch (error) {
-        res.status(404).json({status:"failed",message:"Internal error",error:error})
+        res.status(500).json({status:"failed",message:"Internal error",error:error})
     }
 });
 
-router.get('/login',async(req,res)=>{
+router.post('/login',async(req,res)=>{
     try {
         let user= await dbFun.loginUser(req.body);
         if (user.status=='failed') {
@@ -23,7 +23,7 @@ router.get('/login',async(req,res)=>{
         }
             res.status(200).json(user);         
     } catch (error) {
-        res.status(404).json({status:"failed",message:"Internal error",error:error})
+        res.status(500).json({status:"failed",message:"Internal error",error:error})
     }
 });
 
