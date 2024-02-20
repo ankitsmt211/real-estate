@@ -1,22 +1,29 @@
-app.post('/register',async(req,res)=>{
+const mongoose = require('mongoose');
+const usermodel=require('./models/user');
+
+let registerUser=async(data)=>{
     try {
-        let user= await dbFun.registerUser(req.body);
-        if (user.status=='failed') {
-           return res.status(404).json(user);   
-        }
-            res.status(200).json(user);         
+        let user=await usermodel.create(data);
+        return {status:"success",data:user}
     } catch (error) {
-        res.status(404).json({status:"failed",message:"Internal error",error:error})
+        return {status:"failed"}
     }
-});
-app.get('/login',async(req,res)=>{
+}
+let loginUser=async(data)=>{
     try {
-        let user= await dbFun.loginUser(req.body);
-        if (user.status=='failed') {
-           return res.status(404).json(user);   
+        let user=await usermodel.findOne(data);        
+        if (!user) {
+            return {status:"failed",message:"User not found"}            
         }
-            res.status(200).json(user);         
+        
+        return {status:"success",data:user}   
+            
     } catch (error) {
-        res.status(404).json({status:"failed",message:"Internal error",error:error})
-    }
-});
+        return {status:"failed",message:"Internal error",error:error}
+    }    
+}
+module.exports={registerUser,loginUser}
+
+
+
+
