@@ -27,13 +27,9 @@ router.post('/login',async(req,res)=>{
     }
 });
 
-router.get('/test',async(req,res)=>{
-    let auth=dbFun.authUser(req.headers.authorization);
-    if (auth.status=="failed") {
-        
-        return res.status(404).json(auth); 
-    }
-    return res.status(200).json(auth); 
+router.get('/test',dbFun.authUser,async(req,res)=>{
+  
+    return res.status(200).json(req.user); 
 });
 
 module.exports = router

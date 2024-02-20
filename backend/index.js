@@ -11,14 +11,6 @@ const PORT = 8080
 app.get('/hello-server',(req,res)=>{
     res.send("hello from server")
 });
-app.get('/test',async(req,res)=>{
-    let auth=dbFun.authUser(req.headers.authorization);
-    if (auth.status=="failed") {
-        
-        return res.status(404).json(auth); 
-    }
-    return res.status(200).json(auth); 
-});
     
 
 
