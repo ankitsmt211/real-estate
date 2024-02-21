@@ -8,15 +8,15 @@ const app = express()
 app.use(express.json())
 app.use(userRoutes)
 app.use(propertyRoutes)
-const PORT = 8080
+const PORT = process.env.PORT
 
 app.get('/hello-server',(req,res)=>{
     res.send("hello from server")
 });
     
+const DB_URL = process.env.DB_URL
 
-
-mongoose.connect('mongodb://127.0.0.1:27017/testreal').then(successful=>{
+mongoose.connect(DB_URL).then(successful=>{
     console.log("connected to db")
 }).catch(err=>
     console.log("failed connection",err)
