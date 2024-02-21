@@ -29,7 +29,10 @@ router.post('/login',async(req,res)=>{
 
 router.get('/test',dbFun.authUser,async(req,res)=>{
   
-    return res.status(200).json(req.user); 
+    return res.status(200).json({
+        status:"Authorized",
+        user:req.user.email
+    }); 
 });
 
 module.exports = router

@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 const secretKey ="1fN9OhrYCu27bOnzNWT";
 
 let tokenUser = (user) => {  
-    let token=jwt.sign(user,secretKey);   
+    let userEmail = user.email
+    let token=jwt.sign(userEmail,secretKey);   
     return token;
 }
 let authUser=async(req,res,next)=>{ 
@@ -21,7 +22,7 @@ let authUser=async(req,res,next)=>{
         const data = jwt.verify(token, secretKey);
         
 
-    let user =await usermodel.findOne({email: data.email });
+    let user =await usermodel.findOne({email: data });
     if (!user) {
         return res.status(404).json({ status: "failed", message: "User not found" });            
     } 
@@ -49,7 +50,7 @@ let loginUser=async(data)=>{
         }
         
         let auth=tokenUser({email:user.email});
-        return {status:"success",token:auth,data:user}   
+        return {status:"success",token:auth}   
             
     } catch (error) {
         console.log(error)
