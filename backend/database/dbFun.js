@@ -1,5 +1,38 @@
 const mongoose = require('mongoose');
 const usermodel=require('./models/user');
+const jwt = require('jsonwebtoken');
+const secretKey ="1fN9OhrYCu27bOnzNWT";
+
+let tokenUser = (user) => {  
+    let userEmail = user.email
+    let token=jwt.sign(userEmail,secretKey);   
+    return token;
+}
+let authUser=async(req,res,next)=>{ 
+    try {
+        let authHeader = req.headers.authorization; 
+
+        // Bearer[space]tokenHere
+        let token = authHeader && authHeader.split(' ')[1]
+        if (!token) {
+            
+            return res.status(401).json({ status: "failed", message: "Token not provided" });
+        }
+        
+        const data = jwt.verify(token, secretKey);
+        
+
+    let user =await usermodel.findOne({email: data });
+    if (!user) {
+        return res.status(404).json({ status: "failed", message: "User not found" });            
+    } 
+    req.user = user; 
+    next() 
+    } 
+    catch (error) {
+        return res.status(401).json({ status: "failed", message: error.message }) 
+    }
+}
 
 let registerUser=async(data)=>{
     try {
@@ -16,13 +49,15 @@ let loginUser=async(data)=>{
             return {status:"failed",message:"User not found"}            
         }
         
-        return {status:"success",data:user}   
+        let auth=tokenUser({email:user.email});
+        return {status:"success",token:auth}   
             
     } catch (error) {
+        console.log(error)
         return {status:"failed",message:"Internal error",error:error}
     }    
 }
-module.exports={registerUser,loginUser}
+module.exports={registerUser,loginUser,authUser}
 
 
 

@@ -16,7 +16,7 @@ app.get('/hello-server',(req,res)=>{
     
 
 
-mongoose.connect('mongodb://localhost/testreal').then(successful=>{
+mongoose.connect('mongodb://127.0.0.1:27017/testreal').then(successful=>{
     console.log("connected to db")
 }).catch(err=>
     console.log("failed connection",err)
