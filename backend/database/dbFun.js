@@ -9,12 +9,15 @@ let tokenUser = (user) => {
 }
 let authUser=async(req,res,next)=>{ 
     try {
-        const token = req.headers.authorization; 
-        
+        let authHeader = req.headers.authorization; 
+
+        // Bearer[space]tokenHere
+        let token = authHeader && authHeader.split(' ')[1]
         if (!token) {
             
             return res.status(401).json({ status: "failed", message: "Token not provided" });
         }
+        
         const data = jwt.verify(token, secretKey);
         
 
@@ -24,7 +27,8 @@ let authUser=async(req,res,next)=>{
     } 
     req.user = user; 
     next() 
-    } catch (error) {
+    } 
+    catch (error) {
         return res.status(401).json({ status: "failed", message: error.message }) 
     }
 }
