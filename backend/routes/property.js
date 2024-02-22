@@ -43,5 +43,47 @@ router.post('/add-details/:propertyId', async(req,res)=>{
     }
 })
 
+router.post('/add-general/:propertyId', async(req,res)=>{
+    const generalInfo = req.body
+    const propertyId = req.params.propertyId
+
+    try{
+        let updatedProperty = await propertyModel.findByIdAndUpdate({_id:propertyId},{general:generalInfo},{returnDocument:'after'})
+
+        if(!updatedProperty){
+            res.status(400).json({status:'failure',message:'bad request'})
+            return
+        }
+
+        let updatedPropertyId = updatedProperty._id
+        res.status(200).json({status:'success',data:updatedPropertyId})
+    }
+
+    catch(error){
+        res.status(500).json({status:'failure',message:error.message})
+    }
+})
+
+router.post('/add-location/:propertyId', async (req,res)=>{
+    const locationInfo = req.body
+    const propertyId = req.params.propertyId
+
+    try{
+        let updatedProperty = await propertyModel.findByIdAndUpdate({_id:propertyId},{location:locationInfo},{returnDocument:'after'})
+
+        if(!updatedProperty){
+            res.status(400).json({status:'failure',message:'bad request'})
+            return
+        }
+
+        let updatedPropertyId = updatedProperty._id
+        res.status(200).json({status:'success',data:updatedPropertyId})
+    }
+
+    catch(error){
+        res.status(500).json({status:'failure',message:error.message})
+    }
+})
+
 
 module.exports = router
