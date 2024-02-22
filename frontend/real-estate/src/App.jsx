@@ -1,14 +1,15 @@
 import './App.css'
 import Base from './Components/Base/Base.jsx';
-import TopBar from './Components/Topbar/TopBar.jsx';
-import Sidebar from './Components/Sidebar/Sidebar.jsx';
+import { createContext, useState } from 'react';
 
+export const authContext = createContext();
 
 function App() {
-  return <div className='main'>
-  <Sidebar/>
-  <div className='eleArea'><TopBar/><Base /></div>
-  
-  </div>
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token') != null);
+  return <>
+    <authContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      <Base />
+    </authContext.Provider>
+  </>
 }
 export default App
