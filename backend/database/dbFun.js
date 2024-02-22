@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const usermodel=require('./models/user');
 const jwt = require('jsonwebtoken');
-const secretKey ="1fN9OhrYCu27bOnzNWT";
+const secretKey =process.env.SECRET;
 
 let tokenUser = (user) => {  
     let userEmail = user.email
