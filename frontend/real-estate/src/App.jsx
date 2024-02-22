@@ -1,13 +1,13 @@
 import './App.css'
 import Base from './Components/Base/Base.jsx';
-import NavBar from './Components/Navbar/NavBar.jsx';
+import TopBar from './Components/Topbar/TopBar.jsx';
 import Sidebar from './Components/Sidebar/Sidebar.jsx';
 
 
 function App() {
   return <div className='main'>
   <Sidebar/>
-  <div className='eleArea'><NavBar/><Base /></div>
+  <div className='eleArea'><TopBar/><Base /></div>
   
   </div>
 }

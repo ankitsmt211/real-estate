@@ -1,6 +1,6 @@
-import "./navbar.css";
+import "./topbar.css";
 import usersvg from "../../assets/usericon.svg"
-export default function NavBar(){
+export default function TopBar(){
     return (<div className="nav">
        <div className="navele"><span className="userid">USER ID: --------- </span> 
        <a href="#" className="userprofile">
