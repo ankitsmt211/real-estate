@@ -36,10 +36,15 @@ let authUser=async(req,res,next)=>{
 
 let registerUser=async(data)=>{
     try {
+        let userEmail = data.email
+        if( await userExists(userEmail)){
+            return {status:"failed",message:"User already exists, please sign in."}
+        }
+
         let user=await usermodel.create(data);
         return {status:"success",data:user}
     } catch (error) {
-        return {status:"failed"}
+        return {status:"failed",message:error.message}
     }
 }
 let loginUser=async(data)=>{
@@ -56,6 +61,22 @@ let loginUser=async(data)=>{
         console.log(error)
         return {status:"failed",message:"Internal error",error:error}
     }    
+}
+
+let userExists = async(userEmail)=>{
+    try{
+        let user = await usermodel.findOne({email:userEmail})
+
+        if(!user){
+            return false
+        }
+
+        return true 
+    }
+
+    catch(error){
+        return false
+    }
 }
 module.exports={registerUser,loginUser,authUser}
 
