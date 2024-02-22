@@ -1,7 +1,7 @@
 import './App.css'
 import Base from './Components/Base/Base.jsx';
-import NavBar from './Components/NavBar';
-import Sidebar from './Components/Sidebar';
+import NavBar from './Components/Navbar/NavBar.jsx';
+import Sidebar from './Components/Sidebar/Sidebar.jsx';
 
 
 function App() {

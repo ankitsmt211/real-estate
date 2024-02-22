@@ -1,10 +1,10 @@
 import './sidebar.css';
-import home from '../assets/home.svg';
-import notification from '../assets/notification.svg';
-import receive from '../assets/receive.svg';
-import sent from '../assets//sent.svg';
-import visibility from '../assets//visibility.svg';
-import se from '../assets//se.svg';
+import home from '../../assets/home.svg';
+import notification from '../../assets/notification.svg';
+import receive from '../../assets/receive.svg';
+import sent from '../../assets//sent.svg';
+import visibility from '../../assets//visibility.svg';
+import se from '../../assets//se.svg';
 export default function Sidebar(){
     return (
         <div className="sidebar">

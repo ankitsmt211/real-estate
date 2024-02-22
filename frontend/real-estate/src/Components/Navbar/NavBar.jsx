@@ -1,5 +1,5 @@
 import "./navbar.css";
-import usersvg from "../assets/usericon.svg"
+import usersvg from "../../assets/usericon.svg"
 export default function NavBar(){
     return (<div className="nav">
        <div className="navele"><span className="userid">USER ID: --------- </span> 
