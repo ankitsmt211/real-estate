@@ -1,4 +1,4 @@
-import Properties from "../Properties.jsx"
+import Properties from "../Properties/Properties.jsx"
 export default function Base(){
     const data = [
         { ppdId: 1, image: 'image1.jpg', property: 'Property One', contact: '123-456-7890', area: '1000 sqft', views: 120, status: 'Active', daysLeft: 5, action: 'Renew' },

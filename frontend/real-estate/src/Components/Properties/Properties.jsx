@@ -1,8 +1,9 @@
 import "./properties.css"
-import editicon from "../assets/edit.svg"
-import imgicon from "../assets/imgicon.svg"
-import visibility from '../assets//visibility.svg';
-import searchicon from "../assets/search.svg"
+
+import editicon from "..//../assets/edit.svg"
+import imgicon from "..//../assets/imgicon.svg"
+import visibility from '..//../assets/visibility.svg';
+import searchicon from "..//../assets/search.svg"
 import { useState } from "react";
 const PropertyData = ({ data }) => {
     return (
