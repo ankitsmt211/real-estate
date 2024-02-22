@@ -1,0 +1,56 @@
+.PData{
+    display: flex;
+    height: 65px;
+    border-radius: 22px;
+    margin: 13px 20px 14px 20px;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(3, 3, 3, 0.1);
+}
+.PData > * {
+    flex: 1;
+    padding: 10px; 
+  }
+  .status{
+    display: flex;
+    background-color: #F5FAF5;
+    padding: 2px;
+    justify-content: center;
+    align-items: center;
+
+    
+    width: 60px; 
+  }
+  .search {
+    height: 42px;
+    width: 377px;    
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 13px;
+    margin: 10px;
+    margin-left: 31px;
+    box-shadow: 0 0 10px rgba(3, 3, 3, 0.1);
+  }
+  .searchinput {
+    height: 52px;
+    height: 35px;
+    width: 338px;
+    border: 0px;
+    border-radius: 13px;
+    position: relative;
+ margin-left: 2px;
+  bottom: 13px;
+  font-size: 18px;
+  }
+  .searchicon {
+    height: 40px;
+    width: 29px;
+    position: relative;
+    top: 1px;
+  }
+  .searchinput:focus {
+    outline: 0px;
+    
+  }
+  .pdata{
+    display: flex;
+  }
