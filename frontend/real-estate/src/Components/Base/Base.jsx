@@ -3,10 +3,12 @@ import Sidebar from "../Sidebar/Sidebar"
 import TopBar from "../Topbar/TopBar"
 import Login from "../Auth/Login"
 import Register from "../Auth/Register"
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { authContext } from '../../App';
 import '../Base/base.css'
 import Properties from "../Properties/Properties.jsx"
+import { useEffect } from "react"
+import { useNavigate } from 'react-router-dom';
 
 export default function Base(){
     const { isLoggedIn } = useContext(authContext);
@@ -23,6 +25,8 @@ export default function Base(){
 }
 
 function DashBoard(){
+  let navigate = useNavigate();
+  const [userdata, setuserdata] = useState("")
   const data = [
     { ppdId: 1, image: 'image1.jpg', type: 'Property One', contact: '123-456-7890', area: '1000 sqft', views: 120, status: 'Active', daysLeft: 5, action: 'Renew' },
     { ppdId: 2, image: 'image2.jpg', type: 'Property Two', contact: '234-567-8901', area: '1500 sqft', views: 80, status: 'Pending', daysLeft: 3, action: 'Edit' },
@@ -35,12 +39,45 @@ function DashBoard(){
     { ppdId: 9, image: 'image9.jpg', type: 'Property Nine', contact: '901-234-5678', area: '1300 sqft', views: 85, status: 'Pending', daysLeft: 2, action: 'Edit' },
     { ppdId: 10, image: 'image10.jpg', type: 'Property Ten', contact: '012-345-6789', area: '1700 sqft', views: 55, status: 'Sold', daysLeft: 0, action: 'Remove' },
   ];
+  useEffect(() => {
+    let testUrl='http://localhost:8080/test'
+    const fetchUser = async () => {
+      const token = localStorage.getItem('token'); 
+      
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      try {
+        const response = await fetch(testUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`},
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const json = await response.json();
+        setuserdata(json)
+      } catch (error) {
+        console.error('Error', error);
+        navigate('/login');
+       
+      }
+    };
+
+    fetchUser();
+  }, []);
   
     return <>
      <div className="main">
     <Sidebar/>
       <div className='eleArea'>
-        <TopBar/>
+        <TopBar userdata={userdata}/>
         <Properties dataArray={data} /> 
       </div>
     </div>

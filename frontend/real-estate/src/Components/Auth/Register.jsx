@@ -38,12 +38,12 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
     const input = { username, email, password, cnfPassword };
+    
     if (!handleValidation(input)) {
       return;
     }
 
     delete input.cnfPassword;
-
     const url = `http://localhost:8080/register`; //change end point of api
 
     const response = await fetch(url, {
@@ -58,11 +58,18 @@ const Register = () => {
     if (!responseData.status) {
       alert(responseData.message);
     } else {
-      alert("account created successfully for user with email : " +responseData.data.email);
-      navigate('/login');
+      if (responseData.status=="failed") {
+        alert(responseData.message);
+        navigate('/login');
+      } else {
+        alert("account created successfully for user with email : " +responseData.data.email);
+        navigate('/login');
+      }
+     
     }
   };
   return (
+    <div className='authcon'>
     <div className="login-main-container">
       <h1>Logo</h1>
       <p>Create new account</p>
@@ -109,7 +116,7 @@ const Register = () => {
           Sign In
         </Link>
       </div>
-    </div>
+    </div></div>
   );
 };
 

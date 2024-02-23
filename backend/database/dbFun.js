@@ -1,7 +1,23 @@
 const mongoose = require('mongoose');
 const usermodel=require('./models/user');
 const jwt = require('jsonwebtoken');
+const idcounter=require('./models/counter')
+require('dotenv').config();
 const secretKey =process.env.SECRET;
+
+let userid=async()=>{
+    let user =await idcounter.findOne();
+    if (!user) {
+         
+    let res={ userID: 10, ppdID: 10 }
+        let idcreate=await idcounter.create(res)   
+        return "UGK"+idcreate.userID;
+    } 
+     await usermodel.updateOne({ ppdID: user.ppdID }, { $set: { userID: user.userID+1 } })
+     
+     let newUser="UGK"+(user.userID+1)
+    return newUser
+}
 
 let tokenUser = (user) => {  
     let userEmail = user.email
@@ -27,6 +43,7 @@ let authUser=async(req,res,next)=>{
         return res.status(404).json({ status: "failed", message: "User not found" });            
     } 
     req.user = user; 
+    
     next() 
     } 
     catch (error) {
@@ -40,8 +57,9 @@ let registerUser=async(data)=>{
         if( await userExists(userEmail)){
             return {status:"failed",message:"User already exists, please sign in."}
         }
+        let userID =await userid() 
 
-        let user=await usermodel.create(data);
+        let user=await usermodel.create({userID:userID,...data});
         return {status:"success",data:user}
     } catch (error) {
         return {status:"failed",message:error.message}

@@ -3,6 +3,7 @@ const userRoutes = require('../backend/routes/user')
 const propertyRoutes = require('../backend/routes/property')
 const mongoose = require('mongoose')
 const cors = require('cors')
+require('dotenv').config();
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.get('/hello-server',(req,res)=>{
 });
     
 const DB_URL = process.env.DB_URL
+
 
 mongoose.connect(DB_URL).then(successful=>{
     console.log("connected to db")
