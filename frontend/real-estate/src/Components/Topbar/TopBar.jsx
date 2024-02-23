@@ -20,7 +20,8 @@ export default function TopBar({userdata}){
           setdisplayProfile({ display: "none" }); 
         }
       };
-    return (<div className="nav">
+    return (
+    <div className="nav">
        <div className="navele"><span className="userid">USER ID:  {userdata.userID}</span> 
        <a href="#" className="userprofile" onClick={displayProfilefn}>
                     <img  className="usericon" src={usersvg} />
@@ -38,6 +39,5 @@ export default function TopBar({userdata}){
  
     <div className="navline"></div>              
     </div>
-
     );
 }

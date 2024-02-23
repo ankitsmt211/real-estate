@@ -5,11 +5,11 @@ const router = express.Router()
 
 router.post('/register',async(req,res)=>{
     try {
-        let user= await dbFun.registerUser(req.body);
-        if (user.status=='failed') {
-           return res.status(404).json(user);   
+        let response = await dbFun.registerUser(req.body);
+        if (response.status=='failed') {
+           return res.status(404).json(response);   
         }
-            res.status(200).json({status:"success",data:user});         
+            res.status(200).json(response);         
     } catch (error) {
         res.status(500).json({status:"failed",message:"Internal error",error:error})
     }
@@ -17,11 +17,11 @@ router.post('/register',async(req,res)=>{
 
 router.post('/login',async(req,res)=>{
     try {
-        let user= await dbFun.loginUser(req.body);
-        if (user.status=='failed') {
-           return res.status(404).json({status:"failed",message:"bad request"});   
+        let response = await dbFun.loginUser(req.body);
+        if (response.status=='failed') {
+           return res.status(404).json(response);   
         }
-            res.status(200).json({status:"success",data:user});         
+            res.status(200).json(response);         
     } catch (error) {
         res.status(500).json({status:"failed",message:"Internal error",error:error})
     }

@@ -36,7 +36,7 @@ const Login = () => {
     const responseData = await response.json();
     if (responseData.status=="failed") {
       alert(responseData.message);
-    }else{   if (responseData.status) {
+    }else{   if (responseData.status=="success") {
       const token = responseData.token;
       handleToken(token);
       navigate('/home');
