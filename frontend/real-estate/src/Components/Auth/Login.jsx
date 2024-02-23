@@ -10,6 +10,7 @@ const Login = () => {
   const { setIsLoggedIn } = useContext(authContext);
 
   const handleToken = (token) => {
+    console.log(token)
     localStorage.setItem('token', token);
     setIsLoggedIn(true);
   };
@@ -33,18 +34,22 @@ const Login = () => {
 
     // {status:success,token:284kjfdjfksjksdk}
     const responseData = await response.json();
-
-    if (responseData.status) {
+    if (responseData.status=="failed") {
+      alert(responseData.message);
+    }else{   if (responseData.status) {
       const token = responseData.token;
       handleToken(token);
       navigate('/home');
     }
     if (!responseData.status) {
       alert(responseData.message);
-    }
+    }  }
+
+   
   };
 
   return (
+    <div className='authcon'>
     <div className="login-main-container">
       <h1>Logo</h1>
       <p>Enter your credentials to access your account</p>
@@ -74,7 +79,7 @@ const Login = () => {
           Sign Up
         </Link>
       </div>
-    </div>
+    </div></div>
   );
 };
 

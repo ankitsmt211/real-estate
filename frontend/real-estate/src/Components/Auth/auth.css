@@ -3,9 +3,9 @@ body {
   background-color: #f4f4f4;
   margin: 0;
   display: flex;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
-  height: 100vh;
 }
 
 .login-main-container {
@@ -70,4 +70,8 @@ button.signup-btn:hover {
 
 .login-main-container p{
   font-size: small;
+}
+.authcon{
+  display: flex;
+  justify-content: center;
 }
