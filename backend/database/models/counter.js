@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({ 
+const id = new mongoose.Schema({ 
   userID:Number,
   ppdID:Number
 });
 
-const idmodel = mongoose.model('idcounter', userSchema);
+const idmodel = mongoose.model('idcounter', id);
 
 module.exports = idmodel;

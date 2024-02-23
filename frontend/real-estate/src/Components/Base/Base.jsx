@@ -40,7 +40,8 @@ function DashBoard(){
     { ppdId: 10, image: 'image10.jpg', type: 'Property Ten', contact: '012-345-6789', area: '1700 sqft', views: 55, status: 'Sold', daysLeft: 0, action: 'Remove' },
   ];
   useEffect(() => {
-    const fetchData = async () => {
+    let testUrl='http://localhost:8080/test'
+    const fetchUser = async () => {
       const token = localStorage.getItem('token'); 
       
       if (!token) {
@@ -49,7 +50,7 @@ function DashBoard(){
       }
 
       try {
-        const response = await fetch('http://localhost:8080/test', {
+        const response = await fetch(testUrl, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ function DashBoard(){
       }
     };
 
-    fetchData();
+    fetchUser();
   }, []);
   
     return <>

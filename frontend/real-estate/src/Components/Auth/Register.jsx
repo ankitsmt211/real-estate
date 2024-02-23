@@ -58,8 +58,8 @@ const Register = () => {
     if (!responseData.status) {
       alert(responseData.message);
     } else {
-      if (responseData.message=="User already exists, please sign in.") {
-        alert("User already exists, please sign in.");
+      if (responseData.status=="failed") {
+        alert(responseData.message);
         navigate('/login');
       } else {
         alert("account created successfully for user with email : " +responseData.data.email);
