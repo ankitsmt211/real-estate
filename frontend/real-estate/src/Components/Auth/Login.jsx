@@ -10,7 +10,7 @@ const Login = () => {
   const { setIsLoggedIn } = useContext(authContext);
 
   const handleToken = (token) => {
-    console.log(token)
+    
     localStorage.setItem('token', token);
     setIsLoggedIn(true);
   };
