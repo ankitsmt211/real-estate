@@ -18,7 +18,7 @@ app.get('/hello-server',(req,res)=>{
 });
     
 const DB_URL = process.env.DB_URL
-console.log(DB_URL)
+
 
 mongoose.connect(DB_URL).then(successful=>{
     console.log("connected to db")
