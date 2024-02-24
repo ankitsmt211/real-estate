@@ -9,16 +9,17 @@ import '../Base/base.css'
 import Properties from "../Properties/Properties.jsx"
 import { useEffect } from "react"
 import { useNavigate } from 'react-router-dom';
+import EditProperty from "../Property/EditProperty"
 
 export default function Base(){
     const { isLoggedIn } = useContext(authContext);
-
     return <>
     <BrowserRouter>
         <Routes>
             <Route path="/home" element={isLoggedIn ? <DashBoard /> : <Navigate to={'/login'} />}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
+            <Route path="/edit/:id" element={<EditProperty />}/>
         </Routes>
     </BrowserRouter>
     </>

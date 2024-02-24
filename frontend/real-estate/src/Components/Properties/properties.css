@@ -14,11 +14,11 @@
   .status{
     display: flex;
     background-color: #F5FAF5;
-    padding: 2px;
+    padding: 5px;
     justify-content: center;
     align-items: center;
-
-    
+    border-radius: 7px;
+    width: 60px;    
     width: 60px; 
   }
   .search {
@@ -54,3 +54,4 @@
   .pdata{
     display: flex;
   }
+ 

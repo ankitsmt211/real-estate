@@ -37,6 +37,7 @@
   padding: 10px;
   border: 1px solid black;
   border-radius: 10%;
+  z-index: 1;
  }
  .profiledata:focus {
    outline: 2px solid blue;

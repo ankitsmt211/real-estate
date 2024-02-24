@@ -20,8 +20,8 @@ const Properties = ({ dataArray }) => {
              <img className="searchicon" src={searchicon} alt="SVG Icon" />      </div>
           </div>
           <section className="PData">
-        <div className="pdata"><p>ppdId</p></div>        
-        <div className="pdata"><p>images</p></div>        
+        <div className="pdata"><p>PPD ID</p></div>        
+        <div className="pdata"><p>Images</p></div>        
         <div className="pdata"><p>Property</p></div>        
         <div className="pdata"><p>Contact</p></div>        
         <div className="pdata"><p>Area</p></div>        
@@ -34,6 +34,7 @@ const Properties = ({ dataArray }) => {
             <div>  <p>action</p></div> </section>
 
              {filteredData.map((dataItem, index) => <Property key={index} propertyData={dataItem} />)}
+             
         </div>
       );
   };
