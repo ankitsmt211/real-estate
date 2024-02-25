@@ -25,6 +25,7 @@ function FormNavigation({setCurrentForm,currentForm}){
         if(e.target.className=='clickable'){
             console.log("true")
             setCurrentForm(e.target.id)
+
             console.log("current form changed")
             console.log(e.target.id)
         }
@@ -91,7 +92,21 @@ const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
     }
 
     const handleSave = ()=>{
-        //work on save logic
+   
+        for (let index = 0; index < formDetails.length; index++) {
+           
+            if (currentForm==formDetails[index]) {
+              if (index==formDetails.length-1) {
+                console.log("post data")
+              }else
+              {
+
+                setCurrentForm(formDetails[index+1])
+              }
+              break;
+            }
+            
+        }
     }
     
     return (
@@ -129,7 +144,7 @@ const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
         <div className='button-container'>
             <button className='cancel-button' onClick={handleCancel}>Cancel</button>
             {
-              currentForm=='location'?<button className='save-button' type='button'>Add Property</button>:<button className='save-button' type='button' onClick={handleSave}>Save and Continue</button>
+              currentForm=='location'?<button className='save-button' onClick={handleSave} type='button'>Add Property</button>:<button className='save-button' type='button' onClick={handleSave}>Save and Continue</button>
             }
         </div>
        </form>
