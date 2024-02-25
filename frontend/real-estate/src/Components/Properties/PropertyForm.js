@@ -34,7 +34,7 @@ const propertyForm = {
     },
     location: {
       email: { name: "Email", type: "email", placeholder: "Enter email" },
-      area: { name: "Area", type: "text", placeholder: "Enter area" },
+      area: { name: "Area", type: "number", placeholder: "Enter area" },
       address: { name: "Address", type: "text", placeholder: "Enter address" },
       latitude: { name: "Latitude", type: "number", placeholder: "Enter latitude" },
       city: { name: "City", type: "text", placeholder: "Enter city" },
