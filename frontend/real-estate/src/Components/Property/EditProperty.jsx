@@ -1,8 +1,11 @@
 import { useParams } from 'react-router-dom';
 import "./edit.css"
+
 export default function EditProperty(){
     const { id } = useParams();
-   //id will be PPDID
+
+
+   //id will be PPDID2
     return<>
     <div className='editcon'>
        <div className='edit-ele-con'>
