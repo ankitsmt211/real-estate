@@ -9,9 +9,12 @@
 .form-navigation-bar{
     display: flex;
     border-radius: 50px;
-    border:1px solid white;
+    border: 1px solid white;
     background-color: white;
-    width: 700px;
+    width: 766px;
+    margin-top: 28px;
+    border: 1px solid black;
+  
 }
 
 .form-section-container{
@@ -24,6 +27,8 @@
 .form-navigation-section{
     margin: 10px;
     height: 30px;
+    flex-grow: 1;
+    margin-top: 18px;
 }
 
 .form-navigation-section:hover{
