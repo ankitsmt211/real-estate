@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route,Navigate, Outlet } from "react-router-dom"
 import Sidebar from "../Sidebar/Sidebar"
 import TopBar from "../Topbar/TopBar"
 import Login from "../Auth/Login"
@@ -9,6 +9,7 @@ import '../Base/base.css'
 import Properties from "../Properties/Properties.jsx"
 import { useEffect } from "react"
 import { useNavigate } from 'react-router-dom';
+import AddProperty from "../Add Property/AddProperty.jsx"
 
 export default function Base(){
     const { isLoggedIn } = useContext(authContext);
@@ -16,9 +17,10 @@ export default function Base(){
     return <>
     <BrowserRouter>
         <Routes>
-            <Route path="/home" element={isLoggedIn ? <DashBoard /> : <Navigate to={'/login'} />}/>
+            <Route path="/home/*" element={isLoggedIn ? <DashBoard /> : <Navigate to={'/login'} />}/>
+            {/* <Route path="/home/add-property" element={<AddProperty/>}/> */}
             <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
+            <Route path="/register" element={<Register/>}/>  
         </Routes>
     </BrowserRouter>
     </>
@@ -78,7 +80,11 @@ function DashBoard(){
     <Sidebar/>
       <div className='eleArea'>
         <TopBar userdata={userdata}/>
-        <Properties dataArray={data} /> 
+        <Routes>
+          <Route path="/" element={<Properties dataArray={data}/>}/>
+          <Route path="/add-property" element={<AddProperty/>}/>
+        </Routes>
+        {/* <Properties dataArray={data} />  */}
       </div>
     </div>
     </>

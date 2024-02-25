@@ -1,0 +1,104 @@
+.forms-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 5px;
+}
+.form-navigation-bar{
+    display: flex;
+    border-radius: 50px;
+    border:1px solid white;
+    background-color: white;
+    width: 700px;
+}
+
+.form-section-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.form-navigation-section{
+    margin: 10px;
+    height: 30px;
+}
+
+.form-navigation-section:hover{
+    cursor: pointer;
+}
+
+.form-navigation-section span{
+    margin: 3px;
+}
+
+.form-navigation-section span.sr-number{
+
+    background-color: red;
+    border-radius: 50px;
+    width: 10px;
+    margin: 5px;
+    padding: 8px;
+}
+
+.field-container{
+    width: 200px;
+}
+
+.form-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    width: 550px;
+    /* height: 600px; */
+  }
+  
+
+  .button-container{
+    display: flex;
+    gap: 50px;
+    height: 25px;
+    padding: 18px;
+    margin: 15px;
+  }
+
+  .button-container button{
+    border:0px;
+    border-radius: 30px;
+    height: 40px;
+    padding: 14px;
+  }
+
+.cancel-button{
+    background-color: rgb(106 180 248);
+    color: white;
+    width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.save-button{
+    background-color: rgb(76 87 182);
+    color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+
+
+.field-container{
+    max-height: 65px;
+}
+.field-container-select{
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    padding: 5px;
+}
+
+.field-container-select select{
+    min-height: 35px;
+}
+
+
+
