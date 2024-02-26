@@ -5,26 +5,71 @@ import { useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../Properties/PropertyEndpoints';
 import { basicForm } from './FormData';
 import axios from 'axios';
-export default function AddProperty(){
+
+export default function AddProperty({ppdId}){
+    let navigate = useNavigate()
     const [currentForm,setCurrentForm] = useState('basic')
     const [propertyImage,setPropertyImage] = useState("")
   
     
-    const [formData,setFormData] = useState({basic:basicForm,details:{},general:{},location:{},imageUrl:""})
+    // const [formData,setFormData] = useState({basic:basicForm,details:{},general:{},location:{},imageUrl:""})
+    const [formData, setFormData] = useState(ppdId ? null : {basic: basicForm, details: {}, general: {}, location: {}, imageUrl: ""});
+      
+    useEffect( ()=>{
+        if (!ppdId) {
+            return;
+          }
 
-    useEffect(()=>{
-        console.log(formData)
-    },[formData])
+        const token = localStorage.getItem('token'); 
+        if (!token) {
+          navigate('/login');
+          return;
+        }
+    
+        const getProperties = async ()=>{
+          try{
+            let properties = await fetch(ENDPOINTS.getProperties,{
+              method:'GET',
+              headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`}
+              })
+    
+              if(!properties.ok){
+                throw new Error(`HTTP error! status: ${properties.status}`);
+              }
+    
+              let propertiesJson = await properties.json()
+              let propertiesData = propertiesJson.data
+
+              //filtering properties with matching ppdId
+              let propertyWithId = propertiesData.filter(property=>property.ppdId===ppdId)
+              setFormData({...propertyWithId[0]});
+    
+          }
+          catch(error){
+            console.error('Error', error);
+            navigate('/login');
+          }
+        }
+    
+        getProperties()
+      },[ppdId])
+
+
+    if (ppdId && formData === null) {
+        return null;
+      }
 
     return<>
     <div className='forms-container'>
         <FormNavigation setCurrentForm={setCurrentForm} currentForm={currentForm}/>
-        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData} setPropertyImage={setPropertyImage} propertyImage={propertyImage}/>
+        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData} setPropertyImage={setPropertyImage} propertyImage={propertyImage} ppdId={ppdId}/>
     </div>
     </>
 }
 
-function FormNavigation({setCurrentForm,currentForm}){
+export function FormNavigation({setCurrentForm,currentForm}){
 
     const handleCurrentForm = (e)=>{
         if(e.target.className=='clickable'){
@@ -59,7 +104,7 @@ function FormNavigation({setCurrentForm,currentForm}){
     </>
 }
 
-const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData,setPropertyImage,propertyImage }) => {
+export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData,setPropertyImage,propertyImage,ppdId }) => {
     let navigate = useNavigate()
     const [formSection,setFormSection] = useState(formFields.basic)
 
@@ -157,8 +202,6 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
     }
     const handleAddProperty = async ()=>{
         let token = localStorage.getItem('token')
-
-
         //populate random values
         populatePropertyListData()
    
@@ -167,6 +210,29 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         //add image url on add property request
         setFormData({...formData,imageUrl:url})
         console.log(formData)
+
+        if(ppdId){
+            let editPropertyUrl = `${ENDPOINTS.editProperty}/${ppdId}`
+            let updatedProperty = await fetch(editPropertyUrl,{
+                method:'PUT',
+                headers:{
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body:JSON.stringify(formData)
+            })
+
+            if(!updatedProperty.ok){
+                alert("unable to create document",propertyAdded.statusText)
+            }
+
+            if(updatedProperty.ok){
+                alert("successfully updated document")
+                console.log(updatedProperty)
+            }
+            return
+        }
         let propertyAdded = await fetch(ENDPOINTS.submit,{
             method:'POST',
             headers: {
@@ -215,7 +281,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         :
         <div key={fieldKey} className='field-container'>
             <label>{field.name}</label>
-            <input name={field.name} id={fieldKey} key={field.name} type={field.type} placeholder={field.placeholder}  onChange={(e)=>handleSubmit(fieldKey,e)}/>
+            <input name={field.name} id={fieldKey} value={getFormValue(fieldKey)} key={field.name} type={field.type} placeholder={field.placeholder}  onChange={(e)=>handleSubmit(fieldKey,e)}/>
         </div>
     );
 }) 

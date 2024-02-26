@@ -11,6 +11,7 @@ import { useEffect } from "react"
 import { useNavigate } from 'react-router-dom';
 import AddProperty from "../Add Property/AddProperty.jsx"
 import { ENDPOINTS } from "../Properties/PropertyEndpoints.js"
+import { EditProperty } from "../Edit Property/EditProperty.jsx"
 
 export default function Base(){
     const { isLoggedIn } = useContext(authContext);
@@ -159,8 +160,9 @@ function DashBoard(){
       <div className='eleArea'>
         <TopBar userdata={userdata}/>
         <Routes>
-          <Route path="/" element={<Properties dataArray={preparePropertyList()}/>}/>
+          <Route path="/edit-property/:ppdId" element={<EditProperty/>}/>
           <Route path="/add-property" element={<AddProperty/>}/>
+          <Route path="/" element={<Properties dataArray={preparePropertyList()}/>}/>
         </Routes>
         {/* <Properties dataArray={data} />  */}
       </div>
