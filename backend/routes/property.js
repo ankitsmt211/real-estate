@@ -1,6 +1,36 @@
 const express = require('express')
 const propertyModel = require('../database/models/property')
 const router = express.Router()
+const multer = require('multer');
+const cors = require('cors');
+const uploads = multer({ dest: 'uploads/' });
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/') 
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + '.' + file.originalname.split('.').pop())
+    }
+  })
+  
+  const upload = multer({ storage: storage });
+  router.use(cors());
+  router.use((req, res, next) => {
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self' cdn.example.com;"
+    );
+    next();
+  });
+
+  
+
+router.post ('/upload', upload.single('image'), (req, res) => {
+    let url="http://localhost:8080/"+req.file.path
+    res.json({url:url})
+  });
 
 router.post('/add-basic', async (req,res)=>{
     const basic = req.body
