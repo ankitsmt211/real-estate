@@ -143,7 +143,7 @@ function DashBoard(){
         ppdId: property.ppdId,
         imageUrl: property.imageUrl,
         propertyType: property.basic.buildingType,
-        contact: property.general['mobile'],
+        contact: property.general.mobile || "0-0-0-0-0--00-",
         area: property.details['area'],
         views: property.views || "01",
         status: property.status || "Unsold",

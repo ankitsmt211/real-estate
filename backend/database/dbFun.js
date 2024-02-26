@@ -26,7 +26,7 @@ let PPDid=async()=>{
         let idcreate=await idcounter.create(res)   
         return "PPD"+idcreate.ppdID;
     } 
-     await usermodel.updateOne({ userID: user.userID }, { $set: { ppdID: user.ppdID+1 } })
+     await idcounter.updateOne({ userID: user.userID }, { $set: { ppdID: user.ppdID+1 } })
      
      let newPro="PPD"+(user.ppdID+1)
     return newPro
