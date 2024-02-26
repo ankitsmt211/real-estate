@@ -133,6 +133,13 @@ div .active{
     color: black;
 }
 
+.save-button:hover{
+    cursor: pointer;
+}
+
+.cancel-button:hover{
+    cursor: pointer;
+}
 
 
 

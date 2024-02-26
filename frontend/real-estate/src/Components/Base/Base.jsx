@@ -30,6 +30,7 @@ export default function Base(){
 function DashBoard(){
   let navigate = useNavigate();
   const [userdata, setuserdata] = useState("")
+  const [properties,setProperties] = useState([])
   const data = [
     { ppdId: 1, image: 'image1.jpg', type: 'Property One', contact: '123-456-7890', area: '1000 sqft', views: 120, status: 'Active', daysLeft: 5, action: 'Renew' },
     { ppdId: 2, image: 'image2.jpg', type: 'Property Two', contact: '234-567-8901', area: '1500 sqft', views: 80, status: 'Pending', daysLeft: 3, action: 'Edit' },
@@ -99,7 +100,7 @@ function DashBoard(){
 
           let propertiesJson = await properties.json()
           let propertiesData = propertiesJson.data
-          console.log(propertiesData)
+          setProperties(...propertiesData)
       }
       catch(error){
         console.error('Error', error);
@@ -109,6 +110,15 @@ function DashBoard(){
 
     getProperties()
   },[])
+
+  function preparePropertyList(){
+    //prepare property list data from properties state array
+    // let propertyBrief = {
+    //   ppdId:properties.ppdID
+    // }
+
+    //this propetyBrief object will be passed to Properties Component as data
+  }
     return <>
      <div className="main">
     <Sidebar/>
