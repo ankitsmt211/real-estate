@@ -52,6 +52,9 @@ const propertySchema = new mongoose.Schema({
     },
     owner:{type:mongoose.Types.ObjectId, ref:'User'},
     imageUrl:String,
+    status:String,
+    views:Number,
+    daysLeft:Number,
     ppdId:String
 })
 

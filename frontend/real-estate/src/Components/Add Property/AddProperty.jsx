@@ -128,9 +128,30 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         }
     }
 
+    function populatePropertyListData(){
+        let soldStatus = ['Sold','Unsold']
+        let views = getRandomInt(100)
+        let status = soldStatus[getRandomInt(2)]
+        let daysLeft = getRandomInt(50)
+
+        setFormData(data=>({
+            ...data,
+            views:views,
+            status:status,
+            daysLeft:daysLeft
+        }))
+    }
+
+    function getRandomInt(MaxValue){
+        return Math.floor(Math.random()*MaxValue)
+    }
     const handleAddProperty = async ()=>{
         let token = localStorage.getItem('token')
 
+
+        //populate random values
+        populatePropertyListData()
+   
         let url = await uploadImg(propertyImage)
 
         //add image url on add property request
