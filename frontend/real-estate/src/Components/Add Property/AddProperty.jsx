@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect,  useState } from 'react';
 import '../Add Property/addProperty.css'
 import propertyForm from '../Properties/PropertyForm';
 import { useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../Properties/PropertyEndpoints';
 import { basicForm } from './FormData';
-
+import axios from 'axios';
 export default function AddProperty(){
     const [currentForm,setCurrentForm] = useState('basic')
-    const [formData,setFormData] = useState({basic:basicForm,details:{},general:{},location:{}})
+    const [formData,setFormData] = useState({basic:basicForm,details:{},general:{},location:{},imageUrl:""})
+    const [propertyImage,setPropertyImage] = useState(null)
 
     useEffect(()=>{
         console.log(formData)
@@ -16,7 +17,7 @@ export default function AddProperty(){
     return<>
     <div className='forms-container'>
         <FormNavigation setCurrentForm={setCurrentForm} currentForm={currentForm}/>
-        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData}/>
+        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData} setPropertyImage={setPropertyImage} propertyImage={propertyImage}/>
     </div>
     </>
 }
@@ -56,7 +57,7 @@ function FormNavigation({setCurrentForm,currentForm}){
     </>
 }
 
-const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData }) => {
+const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData,setPropertyImage,propertyImage }) => {
     let navigate = useNavigate()
     const [formSection,setFormSection] = useState(formFields.basic)
 
@@ -72,15 +73,41 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         navigate("/home",{replace:true})
     }
 
+    const uploadImg = async (file) => {
+        const formData = new FormData();
+        formData.append('image', file);
+      
+        try {
+            const response = await axios.post('http://localhost:8080/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return response.data.url;
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+    };
+    
 
     const handleSubmit = (inputName,e) => {
-        setFormData(data=>({
-            ...data,
-            [currentForm]:{
-                ...data[currentForm],
-                [inputName]:e.target.value
+        if (inputName==" ") {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                setPropertyImage(file);
+            } else {
+                alert('Please select an image file.');
             }
-        }))
+            return
+        } else {
+            setFormData(data => ({
+                ...data,
+                [currentForm]: {
+                    ...data[currentForm],
+                    [inputName]: e.target.value
+                }
+            }));
+        }
     }
 
     const handleSave = ()=>{
@@ -121,9 +148,15 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
     const handleAddProperty = async ()=>{
         let token = localStorage.getItem('token')
 
+
         //populate random values
         populatePropertyListData()
-        
+   
+        let url = await uploadImg(propertyImage)
+
+        //add image url on add property request
+        setFormData({...formData,imageUrl:url})
+        console.log(formData)
         let propertyAdded = await fetch(ENDPOINTS.submit,{
             method:'POST',
             headers: {
