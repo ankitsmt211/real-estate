@@ -114,6 +114,7 @@ function DashBoard(){
 
   useEffect(() => {
     preparePropertyList();
+ 
 }, [properties]);
 
 
@@ -137,16 +138,19 @@ function DashBoard(){
   // }
 
   function preparePropertyList() {
+    
     return properties.map(property => ({
-        ppdId: property.ppdID,
+        ppdId: property.ppdId,
         imageUrl: property.imageUrl,
-        propertyType: property.basic['buildingType'],
+        propertyType: property.basic.buildingType,
         contact: property.general['mobile'],
         area: property.details['area'],
-        views: property.views,
-        status: property.status,
-        daysLeft: property.daysLeft
-    }));
+        views: property.views || "01",
+        status: property.status || "Unsold",
+        daysLeft: property.daysLeft || "10"
+    }
+    ));
+
 }
 
     return <>

@@ -7,8 +7,10 @@ import { basicForm } from './FormData';
 import axios from 'axios';
 export default function AddProperty(){
     const [currentForm,setCurrentForm] = useState('basic')
+    const [propertyImage,setPropertyImage] = useState("")
+  
+    
     const [formData,setFormData] = useState({basic:basicForm,details:{},general:{},location:{},imageUrl:""})
-    const [propertyImage,setPropertyImage] = useState(null)
 
     useEffect(()=>{
         console.log(formData)
@@ -73,7 +75,6 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         navigate("/home",{replace:true})
     }
 
-    //returns a url of image saved in db
     const uploadImg = async (file) => {
         const formData = new FormData();
         formData.append('image', file);
@@ -84,19 +85,25 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            return response.data.url;
+            let url=response.data.url
+            console.log(url)
+            setFormData(data => ({
+                ...data,
+                imageUrl: url
+            }));
         } catch (error) {
             console.error('Error uploading file:', error);
         }
     };
     
 
-    //updates formData state on change of fields
     const handleSubmit = (inputName,e) => {
+        
         if (inputName==" ") {
             const file = e.target.files[0];
             if (file && file.type.startsWith('image/')) {
-                setPropertyImage(file);
+                
+                uploadImg(file);
             } else {
                 alert('Please select an image file.');
             }
@@ -112,7 +119,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         }
     }
 
-    //move to next section of form on save
+
     const handleSave = ()=>{
    
         for (let index = 0; index < formDetails.length; index++) {
@@ -131,7 +138,6 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         }
     }
 
-    //updates sold status, views, daysleft for form
     function populatePropertyListData(){
         let soldStatus = ['Sold','Unsold']
         let views = getRandomInt(100)
@@ -151,6 +157,8 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
     }
     const handleAddProperty = async ()=>{
         let token = localStorage.getItem('token')
+
+
         //populate random values
         populatePropertyListData()
    
@@ -177,7 +185,6 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         }
     }
 
-    //for a controlled input
     const getFormValue = (inputName) => {
         return formData[currentForm][inputName] || '';
     }
@@ -208,7 +215,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         :
         <div key={fieldKey} className='field-container'>
             <label>{field.name}</label>
-            <input name={field.name} id={fieldKey} key={field.name} type={field.type} placeholder={field.placeholder} value={getFormValue(fieldKey)} onChange={(e)=>handleSubmit(fieldKey,e)}/>
+            <input name={field.name} id={fieldKey} key={field.name} type={field.type} placeholder={field.placeholder}  onChange={(e)=>handleSubmit(fieldKey,e)}/>
         </div>
     );
 }) 

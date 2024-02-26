@@ -2,15 +2,33 @@ import "../Properties/properties.css"
 import editicon from "..//../assets/edit.svg"
 import imgicon from "..//../assets/imgicon.svg"
 import visibility from '..//../assets/visibility.svg';
+import { useState } from "react";
+import cancelsvg from '../../assets/cancel.svg'
 
 export default function Property({propertyData}){
+   const [showImg, setshowImg] = useState(false);
+    const handleImg=()=>{
+        if (showImg == true) {
+            setshowImg(false)
+        }else{
+        setshowImg(true)
+    }
+    }
+
+
     return<>
+        
           <section className="PData">
+          {showImg && <div className="showImg">
+           
+          <img onClick={handleImg} className="cancel-icon" src={cancelsvg} alt="SVG Icon" />
+            <img className="showImg-ele"  src={propertyData.imageUrl} alt="Image Not found" /></div>
+          }
         <div className="pdata"><p>{propertyData.ppdId}</p></div>        
         <div className="pdata"><a href="#" className="editPro">
-                    <img className="svg-icon" src={imgicon} alt="SVG Icon" />
+                    <img className="svg-icon" onClick={handleImg} src={imgicon} alt="SVG Icon" />
                 </a></div>        
-        <div className="pdata"><p>{propertyData.type}</p></div>        
+        <div className="pdata"><p>{propertyData.propertyType}</p></div>        
         <div className="pdata"><p>{propertyData.contact}</p></div>        
         <div className="pdata"><p>{propertyData.area}</p></div>        
         <div className="pdata"><p>{propertyData.views}</p></div>        
