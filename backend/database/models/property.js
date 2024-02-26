@@ -51,7 +51,8 @@ const propertySchema = new mongoose.Schema({
         longitude:Number
     },
     owner:{type:mongoose.Types.ObjectId, ref:'User'},
-    imageUrl:String
+    imageUrl:String,
+    ppdId:String
 })
 
 const propertyModel = mongoose.model('property',propertySchema)

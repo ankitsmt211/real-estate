@@ -109,7 +109,7 @@ let userExists = async(userEmail)=>{
         return false
     }
 }
-module.exports={registerUser,loginUser,authUser}
+module.exports={registerUser,loginUser,authUser,PPDid}
 
 
 

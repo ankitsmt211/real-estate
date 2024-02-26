@@ -126,7 +126,8 @@ router.post('/add-property',dbFun.authUser, async (req, res) => {
     console.log(req.user)
     propertyData.owner=userId
     try {
-        let newProperty = await propertyModel.create(propertyData);
+        let ppdID = await dbFun.PPDid()
+        let newProperty = await propertyModel.create({ppdId:ppdID,...propertyData});
 
         if (!newProperty) {
             res.status(400).json({ status: 'failure', message: 'Bad request' });
