@@ -161,7 +161,6 @@ function DashBoard(){
         <Routes>
           <Route path="/" element={<Properties dataArray={preparePropertyList()}/>}/>
           <Route path="/add-property" element={<AddProperty/>}/>
-          <Route path="/edit" element={<AddProperty/>}/>
         </Routes>
         {/* <Properties dataArray={data} />  */}
       </div>
