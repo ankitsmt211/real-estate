@@ -18,6 +18,19 @@ let userid=async()=>{
      let newUser="UGK"+(user.userID+1)
     return newUser
 }
+let PPDid=async()=>{
+    let user =await idcounter.findOne();
+    if (!user) {
+         
+    let res={ userID: 10, ppdID: 10 }
+        let idcreate=await idcounter.create(res)   
+        return "PPD"+idcreate.ppdID;
+    } 
+     await usermodel.updateOne({ userID: user.userID }, { $set: { ppdID: user.ppdID+1 } })
+     
+     let newPro="PPD"+(user.ppdID+1)
+    return newPro
+}
 
 let tokenUser = (user) => {  
     let userEmail = user.email
