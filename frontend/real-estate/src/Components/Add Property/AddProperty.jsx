@@ -4,7 +4,7 @@ import propertyForm from '../Properties/PropertyForm';
 import { useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../Properties/PropertyEndpoints';
 import { basicForm } from './FormData';
-
+import axios from 'axios';
 export default function AddProperty(){
     const [currentForm,setCurrentForm] = useState('basic')
     const [formData,setFormData] = useState({basic:basicForm,details:{},general:{},location:{}})
@@ -72,8 +72,33 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         navigate("/home",{replace:true})
     }
 
+    const uploadImg = (event) => {
+        const file = event.target.files[0];
+        
+        if (file && file.type.startsWith('image/')) {
+            const formData = new FormData();
+            formData.append('image', file);
+      
+            axios.post('http://localhost:8080/upload', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            })
+            .then(response => {
+              console.log('File uploaded successfully'+response.data.url);
+              //can save url to the database 
+            })
+            .catch(error => {
+              console.error('Error uploading file:', error);
+            });
+        } else {
+          alert('Please select an image file.');
+        }
+      };
+
 
     const handleSubmit = (inputName,e) => {
+
         setFormData(data=>({
             ...data,
             [currentForm]:{
@@ -81,6 +106,31 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
                 [inputName]:e.target.value
             }
         }))
+
+        // e.preventDefault();
+        console.log(inputName,"name")
+        
+        if(inputName==" "){
+            uploadImg(e)
+            return;
+            
+        }
+
+        console.log(e.target.value)
+        setFormData({
+          ...formData,
+          [inputName]: e.target.value
+        });
+
+        console.log(formData)
+        // console.log(formData)
+       //TODO: finish suubmit event for form
+       //prepare form data first
+
+       //endpoints are saved in ENDPOINTS.js for each section of form
+       //do fetch
+       
+
     }
 
     const handleSave = ()=>{

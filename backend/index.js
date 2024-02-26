@@ -1,6 +1,7 @@
 const express = require('express')
 const userRoutes = require('../backend/routes/user')
 const propertyRoutes = require('../backend/routes/property')
+const path = require('path');
 const mongoose = require('mongoose')
 const cors = require('cors')
 require('dotenv').config();
@@ -11,6 +12,7 @@ app.use(cors())
 app.use(express.json())
 app.use(userRoutes)
 app.use(propertyRoutes)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const PORT = process.env.PORT
 
 app.get('/hello-server',(req,res)=>{

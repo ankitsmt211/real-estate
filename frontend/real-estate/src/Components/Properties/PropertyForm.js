@@ -30,7 +30,8 @@ const propertyForm = {
       featuredPackage: { name: "Featured Package", type: "text", placeholder: "Enter featured package" },
       mobile: { name: "Mobile", type: "text", placeholder: "Enter mobile number" },
       saleType: { name: "Sale Type", type: "text", placeholder: "Enter sale type" },
-      ppdPackage: { name: "PPD Package", type: "text", placeholder: "Enter PPD package" }
+      ppdPackage: { name: "PPD Package", type: "text", placeholder: "Enter PPD package" },
+      " ":{ name: " ", type: "file", accept:"image/*" }
     },
     location: {
       email: { name: "Email", type: "email", placeholder: "Enter email" },
