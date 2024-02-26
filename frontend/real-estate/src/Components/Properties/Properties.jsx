@@ -42,18 +42,19 @@ const Properties = ({ dataArray }) => {
              <button onClick={handleAddProperty}>Add Property</button>
           </div>
           <section className="PData">
-        <div className="pdata"><p>ppdId</p></div>        
-        <div className="pdata"><p>images</p></div>        
-        <div className="pdata"><p>Property</p></div>        
-        <div className="pdata"><p>Contact</p></div>        
-        <div className="pdata"><p>Area</p></div>        
-        <div className="pdata"><p>Views</p></div>        
+        <div className="pdata head"><p>PPDID</p></div>        
+        <div className="pdata head"><p>Image</p></div>        
+        <div className="pdata head"><p>Property</p></div>        
+        <div className="pdata head"><p>Contact</p></div>        
+        <div className="pdata head"><p>Area</p></div>        
+        <div className="pdata head"><p>Views</p></div>        
         <div>
-            <div className=""><span>Status</span></div>
+            <div className="head"><span>Status</span></div>
             </div>
         
-            <div className="pdata"><p>Days Left</p></div>
-            <div>  <p>action</p></div> </section>
+            <div className="pdata head"><p>Days Left</p></div>
+            <div>  <p className="head">Action</p></div> 
+            </section>
 
              {filteredData.map((dataItem, index) => <Property key={index} propertyData={dataItem} />)}
         </div>

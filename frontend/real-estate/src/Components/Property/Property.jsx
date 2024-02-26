@@ -4,8 +4,10 @@ import imgicon from "..//../assets/imgicon.svg"
 import visibility from '..//../assets/visibility.svg';
 import { useState } from "react";
 import cancelsvg from '../../assets/cancel.svg'
+import { useNavigate } from "react-router-dom";
 
 export default function Property({propertyData}){
+    let navigate = useNavigate()
    const [showImg, setshowImg] = useState(false);
     const handleImg=()=>{
         if (showImg == true) {
@@ -13,6 +15,12 @@ export default function Property({propertyData}){
         }else{
         setshowImg(true)
     }
+    }
+
+    const handleEditProperty = ()=>{
+        let ppdId = propertyData.ppdId
+        let editPropertyPath = `/home/edit-property/${ppdId}`
+        navigate(editPropertyPath,{replace:false})
     }
 
 
@@ -40,7 +48,7 @@ export default function Property({propertyData}){
             
         <div>  <a href="#" className="editPro">
                     <img className="svg-icon" src={visibility} alt="SVG Icon" />
-                    <img className="svg-icon" src={editicon} alt="SVG Icon" />
+                    <img className="svg-icon" src={editicon} alt="SVG Icon" onClick={handleEditProperty}/>
                 </a></div>    
       </section>
     </>

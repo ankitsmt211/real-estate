@@ -31,6 +31,7 @@ const storage = multer.diskStorage({
   
 
 router.post ('/upload', upload.single('image'), (req, res) => {
+    console.log(req.file.filename)
     let url="http://localhost:8080/"+req.file.path
     res.json({url:url})
   });
@@ -152,6 +153,25 @@ router.get('/get-property',dbFun.authUser, async (req,res)=>{
         }
 
         res.status(200).json({status:'success',data:properties})
+    }
+    catch(error){
+        res.status(500).json({status:'failure',message:error.message})
+    }
+})
+
+router.put('/edit-property/:ppdId',dbFun.authUser, async (req,res)=>{
+    let userId = req.user._id
+    let ppdID = req.params.ppdId
+    let data = req.body
+
+    try{
+        let updatedProperty = await propertyModel.findOneAndUpdate({ppdId:ppdID},data,{new:true})
+        if (!updatedProperty) {
+            res.status(400).json({ status: 'failure', message: 'Bad request' });
+            return;
+        }
+
+        res.status(200).json({ status: 'success', data: updatedProperty });
     }
     catch(error){
         res.status(500).json({status:'failure',message:error.message})

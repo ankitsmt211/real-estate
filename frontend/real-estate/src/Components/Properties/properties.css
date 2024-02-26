@@ -76,6 +76,7 @@
   .list-container{
     background-color: white;
     padding: 10px;
+    height: 100%;
   }
 
   .search-add-property-container button{
@@ -110,4 +111,8 @@
   position: absolute;
   top: 4px;
   right: 29px;
+}
+
+.head{
+  color:#43649e;
 }
