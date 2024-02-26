@@ -31,18 +31,18 @@ function DashBoard(){
   let navigate = useNavigate();
   const [userdata, setuserdata] = useState("")
   const [properties,setProperties] = useState([])
-  const data = [
-    { ppdId: 1, image: 'image1.jpg', type: 'Property One', contact: '123-456-7890', area: '1000 sqft', views: 120, status: 'Active', daysLeft: 5, action: 'Renew' },
-    { ppdId: 2, image: 'image2.jpg', type: 'Property Two', contact: '234-567-8901', area: '1500 sqft', views: 80, status: 'Pending', daysLeft: 3, action: 'Edit' },
-    { ppdId: 3, image: 'image3.jpg', type: 'Property Three', contact: '345-678-9012', area: '2000 sqft', views: 60, status: 'Sold', daysLeft: 0, action: 'Remove' },
-    { ppdId: 4, image: 'image4.jpg', type: 'Property Four', contact: '456-789-0123', area: '1200 sqft', views: 110, status: 'Active', daysLeft: 10, action: 'Renew' },
-    { ppdId: 5, image: 'image5.jpg', type: 'Property Five', contact: '567-890-1234', area: '1400 sqft', views: 90, status: 'Active', daysLeft: 8, action: 'Renew' },
-    { ppdId: 6, image: 'image6.jpg', type: 'Property Six', contact: '678-901-2345', area: '1600 sqft', views: 70, status: 'Pending', daysLeft: 4, action: 'Edit' },
-    { ppdId: 7, image: 'image7.jpg', type: 'Property Seven', contact: '789-012-3456', area: '1800 sqft', views: 50, status: 'Sold', daysLeft: 0, action: 'Remove' },
-    { ppdId: 8, image: 'image8.jpg', type: 'Property Eight', contact: '890-123-4567', area: '1100 sqft', views: 100, status: 'Active', daysLeft: 7, action: 'Renew' },
-    { ppdId: 9, image: 'image9.jpg', type: 'Property Nine', contact: '901-234-5678', area: '1300 sqft', views: 85, status: 'Pending', daysLeft: 2, action: 'Edit' },
-    { ppdId: 10, image: 'image10.jpg', type: 'Property Ten', contact: '012-345-6789', area: '1700 sqft', views: 55, status: 'Sold', daysLeft: 0, action: 'Remove' },
-  ];
+  // const data = [
+  //   { ppdId: 1, image: 'image1.jpg', type: 'Property One', contact: '123-456-7890', area: '1000 sqft', views: 120, status: 'Active', daysLeft: 5, action: 'Renew' },
+  //   { ppdId: 2, image: 'image2.jpg', type: 'Property Two', contact: '234-567-8901', area: '1500 sqft', views: 80, status: 'Pending', daysLeft: 3, action: 'Edit' },
+  //   { ppdId: 3, image: 'image3.jpg', type: 'Property Three', contact: '345-678-9012', area: '2000 sqft', views: 60, status: 'Sold', daysLeft: 0, action: 'Remove' },
+  //   { ppdId: 4, image: 'image4.jpg', type: 'Property Four', contact: '456-789-0123', area: '1200 sqft', views: 110, status: 'Active', daysLeft: 10, action: 'Renew' },
+  //   { ppdId: 5, image: 'image5.jpg', type: 'Property Five', contact: '567-890-1234', area: '1400 sqft', views: 90, status: 'Active', daysLeft: 8, action: 'Renew' },
+  //   { ppdId: 6, image: 'image6.jpg', type: 'Property Six', contact: '678-901-2345', area: '1600 sqft', views: 70, status: 'Pending', daysLeft: 4, action: 'Edit' },
+  //   { ppdId: 7, image: 'image7.jpg', type: 'Property Seven', contact: '789-012-3456', area: '1800 sqft', views: 50, status: 'Sold', daysLeft: 0, action: 'Remove' },
+  //   { ppdId: 8, image: 'image8.jpg', type: 'Property Eight', contact: '890-123-4567', area: '1100 sqft', views: 100, status: 'Active', daysLeft: 7, action: 'Renew' },
+  //   { ppdId: 9, image: 'image9.jpg', type: 'Property Nine', contact: '901-234-5678', area: '1300 sqft', views: 85, status: 'Pending', daysLeft: 2, action: 'Edit' },
+  //   { ppdId: 10, image: 'image10.jpg', type: 'Property Ten', contact: '012-345-6789', area: '1700 sqft', views: 55, status: 'Sold', daysLeft: 0, action: 'Remove' },
+  // ];
   useEffect(() => {
     let testUrl='http://localhost:8080/test'
     const fetchUser = async () => {
@@ -100,7 +100,8 @@ function DashBoard(){
 
           let propertiesJson = await properties.json()
           let propertiesData = propertiesJson.data
-          setProperties(...propertiesData)
+          setProperties(propertiesData);
+
       }
       catch(error){
         console.error('Error', error);
@@ -111,21 +112,50 @@ function DashBoard(){
     getProperties()
   },[])
 
-  function preparePropertyList(){
-    //prepare property list data from properties state array
-    // let propertyBrief = {
-    //   ppdId:properties.ppdID
-    // }
+  useEffect(() => {
+    preparePropertyList();
+}, [properties]);
 
-    //this propetyBrief object will be passed to Properties Component as data
-  }
+
+  // function preparePropertyList(){
+  //   //prepare property list data from properties state array
+  //   console.log(properties)
+  //   let propertyBrief = {
+  //     ppdId:properties.ppdID,
+  //     imageUrl:properties.imageUrl,
+  //     propertyType:properties.basic['buildingType'],
+  //     contact:properties.general['mobile'],
+  //     area:properties.details['area'],
+  //     views:properties.views,
+  //     status:properties.status,
+  //     daysLeft:properties.daysLeft
+  //   }
+
+  //   return propertyBrief
+
+  //   //this propetyBrief object will be passed to Properties Component as data
+  // }
+
+  function preparePropertyList() {
+    return properties.map(property => ({
+        ppdId: property.ppdID,
+        imageUrl: property.imageUrl,
+        propertyType: property.basic['buildingType'],
+        contact: property.general['mobile'],
+        area: property.details['area'],
+        views: property.views,
+        status: property.status,
+        daysLeft: property.daysLeft
+    }));
+}
+
     return <>
      <div className="main">
     <Sidebar/>
       <div className='eleArea'>
         <TopBar userdata={userdata}/>
         <Routes>
-          <Route path="/" element={<Properties dataArray={data}/>}/>
+          <Route path="/" element={<Properties dataArray={preparePropertyList()}/>}/>
           <Route path="/add-property" element={<AddProperty/>}/>
         </Routes>
         {/* <Properties dataArray={data} />  */}

@@ -73,6 +73,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         navigate("/home",{replace:true})
     }
 
+    //returns a url of image saved in db
     const uploadImg = async (file) => {
         const formData = new FormData();
         formData.append('image', file);
@@ -90,6 +91,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
     };
     
 
+    //updates formData state on change of fields
     const handleSubmit = (inputName,e) => {
         if (inputName==" ") {
             const file = e.target.files[0];
@@ -110,6 +112,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         }
     }
 
+    //move to next section of form on save
     const handleSave = ()=>{
    
         for (let index = 0; index < formDetails.length; index++) {
@@ -128,6 +131,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         }
     }
 
+    //updates sold status, views, daysleft for form
     function populatePropertyListData(){
         let soldStatus = ['Sold','Unsold']
         let views = getRandomInt(100)
@@ -147,8 +151,6 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
     }
     const handleAddProperty = async ()=>{
         let token = localStorage.getItem('token')
-
-
         //populate random values
         populatePropertyListData()
    
@@ -175,6 +177,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         }
     }
 
+    //for a controlled input
     const getFormValue = (inputName) => {
         return formData[currentForm][inputName] || '';
     }
