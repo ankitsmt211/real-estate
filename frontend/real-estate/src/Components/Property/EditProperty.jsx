@@ -17,7 +17,7 @@ export default function EditProperty(){
         <input className='edit-input' type="text"/></div>
         <div className='edit-ele'>            
             <label> Price</label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         
        </div>
        <div className='edit-ele-con'>
@@ -26,7 +26,7 @@ export default function EditProperty(){
         <input className='edit-input' type="text"/></div>
         <div className='edit-ele'>            
             <label> Property Age</label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         <div className='edit-ele'>            
             <label> Property Approved</label><br/>
         <input className='edit-input' type="text"/></div>
@@ -41,16 +41,16 @@ export default function EditProperty(){
         <input className='edit-input' type="text"/></div>
         <div className='edit-ele'>            
             <label> Length</label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         
        </div>
        <div className='edit-ele-con'>
         <div className='edit-ele'>            
             <label> Breath </label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         <div className='edit-ele'>            
             <label> Total Area</label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         <div className='edit-ele'>            
             <label> Area Unit </label><br/>
         <input className='edit-input' type="text"/></div>
@@ -59,10 +59,10 @@ export default function EditProperty(){
        <div className='edit-ele-con'>
         <div className='edit-ele'>            
             <label> No of BHK </label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         <div className='edit-ele'>            
             <label> No of Floor </label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         <div className='edit-ele'>            
             <label> Attached </label><br/>
         <input className='edit-input' type="text"/></div>
@@ -119,13 +119,13 @@ export default function EditProperty(){
        <div className='edit-ele-con'>
         <div className='edit-ele'>            
             <label> Email </label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="email"/></div>
         <div className='edit-ele'>            
             <label>City</label><br/>
         <input className='edit-input' type="text"/></div>
         <div className='edit-ele'>            
             <label> Area </label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         
        </div>
        <div className='edit-ele-con'>
@@ -143,10 +143,10 @@ export default function EditProperty(){
        <div className='edit-ele-con'>
         <div className='edit-ele'>            
             <label> Latitude </label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         <div className='edit-ele'>            
             <label>Longitude</label><br/>
-        <input className='edit-input' type="text"/></div>
+        <input className='edit-input' type="number"/></div>
         <div className='edit-ele'>  
                
            </div>

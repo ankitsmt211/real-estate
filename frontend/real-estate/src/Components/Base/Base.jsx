@@ -23,7 +23,7 @@ export default function Base(){
             {/* <Route path="/home/add-property" element={<AddProperty/>}/> */}
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
-            <Route path="/edit/:id" element={<EditProperty />}/>
+            {/* <Route path="/edit/:id" element={<EditProperty />}/> */}
         </Routes>
     </BrowserRouter>
     </>
@@ -159,6 +159,7 @@ function DashBoard(){
         <Routes>
           <Route path="/" element={<Properties dataArray={preparePropertyList()}/>}/>
           <Route path="/add-property" element={<AddProperty/>}/>
+          <Route path="/edit-property/:id" element={<EditProperty/>}/>
         </Routes>
         {/* <Properties dataArray={data} />  */}
       </div>
