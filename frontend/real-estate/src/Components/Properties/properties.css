@@ -11,6 +11,7 @@
     flex: 1;
     padding: 10px; 
   }
+  
   .status{
     display: flex;
     background-color: #F5FAF5;
@@ -84,4 +85,30 @@
   .search-add-property-container button:hover{
     cursor: pointer;
   }
+
+ .showImg{
+  display: block;
+  position: absolute;
+  
+  border:1px solid black ;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+ 
+  padding: 30px;
+ }
+ .showImg-ele{
+  width: 488px;
+  height: auto;
+  margin-top: 10px;
+ }
+ .cancel-icon {
+ 
+  width: 33px;
+  height: auto;
+  position: absolute;
+  top: 4px;
+  right: 29px;
+}
 

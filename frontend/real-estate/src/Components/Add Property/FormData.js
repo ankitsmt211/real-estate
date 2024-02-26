@@ -3,10 +3,10 @@ const basicForm = {
     price:0,
     age:0,
     description:"",
-    negotiable:"",
-    ownership:"",
-    approved:"",
-    hasLoan:""
+    negotiable: "Yes",
+    ownership: "Sole",
+    approved:"YES",
+    hasLoan: "Available"
 }
 
 const generalForm = {
@@ -22,15 +22,15 @@ const detailsForm = {
     length:0,
     area:0,
     noOfBHK:0,
-    attached:"",
-    furnished:"",
-    lift:"",
+    attached:"YES",
+    furnished:"Fully",
+    lift:"Available",
     facing:"",
     breadth:"",
     areaUnit:"",
     noOfFloor:"",
-    westernToilet:"",
-    carParking:"",
+    westernToilet:"Available",
+    carParking:"Available",
     electricity:""
 }
 
