@@ -108,7 +108,22 @@ router.post('/add-property',dbFun.authUser, async (req, res) => {
     }
 });
 
+router.get('/get-property',dbFun.authUser, async (req,res)=>{
+    let userId = req.user._id
+    try{
+        let properties = await propertyModel.find({owner:userId})
 
+        if(!properties){
+            res.status(400).json({status:'failure',message:'Bad request'})
+            return
+        }
+
+        res.status(200).json({status:'success',data:properties})
+    }
+    catch(error){
+        res.status(500).json({status:'failure',message:error.message})
+    }
+})
 
 
 module.exports = router
