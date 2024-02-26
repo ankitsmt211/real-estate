@@ -7,13 +7,16 @@ import { basicForm } from './FormData';
 import axios from 'axios';
 export default function AddProperty(){
     const [currentForm,setCurrentForm] = useState('basic')
+    const [formData,setFormData] = useState({basic:basicForm,details:{},general:{},location:{}})
 
-   
+    useEffect(()=>{
+        console.log(formData)
+    },[formData])
 
     return<>
     <div className='forms-container'>
         <FormNavigation setCurrentForm={setCurrentForm} currentForm={currentForm}/>
-        <FormComponent formDataFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm}/>
+        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData}/>
     </div>
     </>
 }
@@ -21,7 +24,6 @@ export default function AddProperty(){
 function FormNavigation({setCurrentForm,currentForm}){
 
     const handleCurrentForm = (e)=>{
-        // console.log(e.target.parent.id)
         if(e.target.className=='clickable'){
             console.log("true")
             setCurrentForm(e.target.id)
@@ -34,37 +36,36 @@ function FormNavigation({setCurrentForm,currentForm}){
     
     return <>
      <div className="form-navigation-bar" >
-    <div className='form-navigation-section' onClick={handleCurrentForm}>
-        <span className='sr-number'>1</span>
+    <div className={`form-navigation-section ${currentForm === 'basic' ? 'active' : ''}`}  onClick={handleCurrentForm}>
+        <span className={`sr-number ${currentForm === 'basic' ? 'active' : ''}`}>1</span>
         <span id='basic' className='clickable'>Basic Info</span>
     </div>
-    <div className='form-navigation-section'  onClick={handleCurrentForm} >
-        <span className='sr-number'>2</span>
+    <div className={`form-navigation-section ${currentForm === 'details' ? 'active' : ''}`}   onClick={handleCurrentForm} >
+        <span className={`sr-number ${currentForm === 'details' ? 'active' : ''}`}>2</span>
         <span id='details' className='clickable'>Property Details</span>
     </div>
-    <div className='form-navigation-section' onClick={handleCurrentForm}>
-        <span className='sr-number'>3</span>
+    <div className={`form-navigation-section ${currentForm === 'general' ? 'active' : ''}`}  onClick={handleCurrentForm}>
+        <span className={`sr-number ${currentForm === 'general' ? 'active' : ''}`}>3</span>
         <span id='general' className='clickable'>General Info</span>
     </div>
-    <div className='form-navigation-section' onClick={handleCurrentForm}>
-        <span className='sr-number'>4</span>
+    <div className={`form-navigation-section ${currentForm === 'location' ? 'active' : ''}`}  onClick={handleCurrentForm}>
+        <span className={`sr-number ${currentForm === 'location' ? 'active' : ''}`}>4</span>
         <span id='location' className='clickable'>Location Info</span>
     </div>
    </div>
     </>
 }
 
-const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
+const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData }) => {
     let navigate = useNavigate()
-    const [formSection,setFormSection] = useState(formDataFields.basic)
+    const [formSection,setFormSection] = useState(formFields.basic)
 
     const formDetails = ['basic','details','general','location']
 
-    const[formData,setFormData] = useState(basicForm)
+
     useEffect(()=>{
-        // console.log(formData[currentForm])
-        setFormSection(formDataFields[currentForm])
-        return ()=>setFormSection(formDataFields.basic)
+        setFormSection(formFields[currentForm])
+        return ()=>setFormSection(formFields.basic)
     },[currentForm])
 
     const handleCancel = ()=>{
@@ -97,6 +98,15 @@ const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
 
 
     const handleSubmit = (inputName,e) => {
+
+        setFormData(data=>({
+            ...data,
+            [currentForm]:{
+                ...data[currentForm],
+                [inputName]:e.target.value
+            }
+        }))
+
         // e.preventDefault();
         console.log(inputName,"name")
         
@@ -120,6 +130,7 @@ const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
        //endpoints are saved in ENDPOINTS.js for each section of form
        //do fetch
        
+
     }
 
     const handleSave = ()=>{
@@ -139,6 +150,32 @@ const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
             
         }
     }
+
+    const handleAddProperty = async ()=>{
+        let token = localStorage.getItem('token')
+
+        let propertyAdded = await fetch(ENDPOINTS.submit,{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body:JSON.stringify(formData)
+        })
+
+        if(!propertyAdded.ok){
+            alert("unable to create document",propertyAdded.statusText)
+        }
+        if(propertyAdded.ok){
+            alert("successfully added document")
+        }
+    }
+
+    const getFormValue = (inputName) => {
+        return formData[currentForm][inputName] || '';
+    }
+    
     
     return (
       <form className='form-section-container' >
@@ -146,17 +183,17 @@ const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
         {
            Object.keys(formSection).map((fieldKey) => {
             const field = formSection[fieldKey];
-            // console.log(field)
+    
             // based on input type, it either retuns select or text input
             return ( 
         field.type === 'select' ?
         <>
         <div className='field-container-select'>
             <label>{field.name}</label>
-                <select key={field.name} id={fieldKey} name={field.name} onChange={(e)=>handleSubmit(fieldKey,e)}>
+                <select key={field.name} id={fieldKey} value={getFormValue(fieldKey)} name={field.name} onChange={(e)=>handleSubmit(fieldKey,e)}>
                 {
                     field.options.map(option=>{
-                        return <option key={option} value={option}>{option}</option>
+                        return <option key={option} >{option}</option>
                     })
                 }
                 </select>
@@ -165,7 +202,7 @@ const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
         :
         <div key={fieldKey} className='field-container'>
             <label>{field.name}</label>
-            <input name={field.name} id={fieldKey} key={field.name} type={field.type} placeholder={field.placeholder} onChange={(e)=>handleSubmit(fieldKey,e)}/>
+            <input name={field.name} id={fieldKey} key={field.name} type={field.type} placeholder={field.placeholder} value={getFormValue(fieldKey)} onChange={(e)=>handleSubmit(fieldKey,e)}/>
         </div>
     );
 }) 
@@ -175,7 +212,7 @@ const FormComponent = ({ formDataFields,currentForm,setCurrentForm }) => {
         <div className='button-container'>
             <button className='cancel-button' onClick={handleCancel}>Cancel</button>
             {
-              currentForm=='location'?<button className='save-button' onClick={handleSave} type='button'>Add Property</button>:<button className='save-button' type='button' onClick={handleSave}>Save and Continue</button>
+              currentForm=='location'?<button className='save-button' onClick={handleAddProperty} type='button'>Add Property</button>:<button className='save-button' type='button' onClick={handleSave}>Save and Continue</button>
             }
         </div>
        </form>

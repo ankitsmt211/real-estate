@@ -6,30 +6,30 @@ const propertySchema = new mongoose.Schema({
         price:Number,
         age:Number,
         description:String,
-        negotiable:Boolean,
+        negotiable:String,
         ownership:{
             type:String,
             enum:['Sole','Joint','Community','Trust']
         },
-        approved:Boolean,
-        hasLoan:Boolean
+        approved:String,
+        hasLoan:String
     },
     details:{
         length:Number,
         area:Number,
         noOfBHK:Number,
-        attached:Boolean,
+        attached:String,
         furnished:{
             type:String,
             enum:['Fully','Semi','Unfurnished']
         },
-        list:Boolean,
+        lift:String,
         facing:String,
         breadth:Number,
         areaUnit:String,
         noOfFloor:Number,
-        westernToilet:Boolean,
-        carParking:Boolean,
+        westernToilet:String,
+        carParking:String,
         electricity:String
     },
     general:{

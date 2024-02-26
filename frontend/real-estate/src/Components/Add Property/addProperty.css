@@ -1,20 +1,21 @@
 .forms-container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background-color: white;
-    margin: 5px;
+    height: 100%;
 }
 .form-navigation-bar{
     display: flex;
     border-radius: 50px;
-    border: 1px solid white;
     background-color: white;
-    width: 766px;
     margin-top: 28px;
-    border: 1px solid black;
-  
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 0px;
+    border: 0px;
+    height: 50px;
+    gap: 50px;
 }
 
 .form-section-container{
@@ -25,27 +26,32 @@
 
 
 .form-navigation-section{
-    margin: 10px;
-    height: 30px;
     flex-grow: 1;
-    margin-top: 18px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    font-weight: 550;
+    color: #b5b5b5;
 }
 
 .form-navigation-section:hover{
     cursor: pointer;
 }
 
-.form-navigation-section span{
-    margin: 3px;
-}
 
 .form-navigation-section span.sr-number{
-
-    background-color: red;
-    border-radius: 50px;
-    width: 10px;
-    margin: 5px;
-    padding: 8px;
+    display:block;
+    background-color: #c8f6f4;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 5px;
 }
 
 .field-container{
@@ -56,9 +62,17 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
-    width: 550px;
-    /* height: 600px; */
+    /* width: 550px; */
+    font-weight: 550;
+    color: #7d7d7d;
   }
+.form-details label{
+    margin: 10px 0;
+}
+
+.form-details div{
+    min-width: 433px;
+}
   
 
   .button-container{
@@ -74,6 +88,7 @@
     border-radius: 30px;
     height: 40px;
     padding: 14px;
+    font-weight: 500;
   }
 
 .cancel-button{
@@ -92,7 +107,7 @@
 
 
 .field-container{
-    max-height: 65px;
+    min-height: 65px;
 }
 .field-container-select{
     display: flex;
@@ -102,8 +117,22 @@
 }
 
 .field-container-select select{
-    min-height: 35px;
+    min-height: 40px;
 }
+
+div .active{
+    background-color: #6ab4f8;
+}
+
+.form-navigation-section.active{
+    color: white;
+}
+
+.form-navigation-section .sr-number.active{
+    background-color: white;
+    color: black;
+}
+
 
 
 

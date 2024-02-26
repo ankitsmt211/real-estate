@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function TopBar({userdata}){
   let navigate=useNavigate();
+  console.log(userdata)
   let logout=()=>{
    
     localStorage.removeItem("token")
@@ -25,7 +26,7 @@ export default function TopBar({userdata}){
        <div className="navele"><span className="userid">USER ID:  {userdata.userID}</span> 
        <a href="#" className="userprofile" onClick={displayProfilefn}>
                     <img  className="usericon" src={usersvg} />
-                    <span className="button-name">{userdata.username}</span> 
+                    <span className="button-name">{userdata.email}</span> 
                 </a>
         <div style={displayProfile  }  className="profiledata">
           <div className="pcon"><img  className="profileimg" src={usersvg} /></div>
