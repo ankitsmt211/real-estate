@@ -143,7 +143,7 @@ function DashBoard(){
         ppdId: property.ppdId,
         imageUrl: property.imageUrl,
         propertyType: property.basic.buildingType,
-        contact: property.general['mobile'],
+        contact: property.general.mobile || "0-0-0-0-0--00-",
         area: property.details['area'],
         views: property.views || "01",
         status: property.status || "Unsold",
@@ -161,6 +161,7 @@ function DashBoard(){
         <Routes>
           <Route path="/" element={<Properties dataArray={preparePropertyList()}/>}/>
           <Route path="/add-property" element={<AddProperty/>}/>
+          <Route path="/edit" element={<AddProperty/>}/>
         </Routes>
         {/* <Properties dataArray={data} />  */}
       </div>

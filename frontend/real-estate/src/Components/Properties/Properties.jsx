@@ -13,7 +13,20 @@ const Properties = ({ dataArray }) => {
   setfind(value.target.value);
  }
 
- const filteredData = dataArray.filter(dataItem => find.trim() == "" || dataItem.ppdId === Number(find));
+
+ const filteredData = dataArray.filter(dataItem => {
+  const findLowerCase = find.toLowerCase(); 
+  const ppdIdLowerCase = dataItem.ppdId.toLowerCase(); 
+  
+  if (find.trim() === "") {
+      return true;
+  }
+  if (ppdIdLowerCase.includes(findLowerCase)) {
+      return true;
+  }
+  
+  return false;
+});
 
  const handleAddProperty = ()=>{
   navigate('/home/add-property')
