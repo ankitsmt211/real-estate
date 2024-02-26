@@ -204,7 +204,7 @@ const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formD
         <>
         <div className='field-container-select'>
             <label>{field.name}</label>
-                <select key={field.name} id={fieldKey}  name={field.name} onChange={(e)=>handleSubmit(fieldKey,e)}>
+                <select key={field.name} id={fieldKey} value={getFormValue(fieldKey)}  name={field.name} onChange={(e)=>handleSubmit(fieldKey,e)}>
                 {
                     field.options.map(option=>{
                         return <option key={option} >{option}</option>
