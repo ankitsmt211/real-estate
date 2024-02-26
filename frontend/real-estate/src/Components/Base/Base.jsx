@@ -10,6 +10,7 @@ import Properties from "../Properties/Properties.jsx"
 import { useEffect } from "react"
 import { useNavigate } from 'react-router-dom';
 import AddProperty from "../Add Property/AddProperty.jsx"
+import { ENDPOINTS } from "../Properties/PropertyEndpoints.js"
 
 export default function Base(){
     const { isLoggedIn } = useContext(authContext);
@@ -75,6 +76,39 @@ function DashBoard(){
     fetchUser();
   }, []);
   
+
+  useEffect( ()=>{
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    const getProperties = async ()=>{
+      try{
+        let properties = await fetch(ENDPOINTS.getProperties,{
+          method:'GET',
+          headers:{
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`}
+          })
+
+          if(!properties.ok){
+            throw new Error(`HTTP error! status: ${properties.status}`);
+          }
+
+          let propertiesJson = await properties.json()
+          let propertiesData = propertiesJson.data
+          console.log(propertiesData)
+      }
+      catch(error){
+        console.error('Error', error);
+        navigate('/login');
+      }
+    }
+
+    getProperties()
+  },[])
     return <>
      <div className="main">
     <Sidebar/>
