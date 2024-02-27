@@ -78,6 +78,7 @@ function PropertySection({title,data,odd}){
     return <>
     <div className={`section-container ${odd?'odd':""}`}>
         <h2 className="section-header">{title}</h2>
+        
         <div className="section-data">
             {data && Object.entries(data).map(([key,value])=>{
                 let section = title.toLowerCase()

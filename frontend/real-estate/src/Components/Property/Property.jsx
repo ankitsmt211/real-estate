@@ -53,8 +53,8 @@ export default function Property({propertyData}){
             <div className="pdata"><p>{propertyData.daysLeft}</p></div>
             
         <div>  <a href="#" className="editPro">
-                    <img className="svg-icon" src={visibility} alt="SVG Icon" onClick={handleDisplayProperty}/>
-                    <img className="svg-icon" src={editicon} alt="SVG Icon" onClick={handleEditProperty}/>
+                    <img  src={visibility} alt="SVG Icon" onClick={handleDisplayProperty}/>
+                    <img className="editicon" src={editicon} alt="SVG Icon" onClick={handleEditProperty}/>
                 </a></div>    
       </section>
     </>

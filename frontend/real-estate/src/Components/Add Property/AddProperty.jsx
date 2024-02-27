@@ -278,7 +278,11 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
                 </select>
         </div>
         </> 
-        :
+         :( field.type === 'file')?<>
+         <div key={fieldKey} className='field-container'>
+             <label>{field.name}</label>
+             <input name={field.name} id={fieldKey} key={field.name}  type={field.type} placeholder={field.placeholder}  onChange={(e)=>handleSubmit(fieldKey,e)}/>
+         </div></>:
         <div key={fieldKey} className='field-container-add-property'>
             <label>{field.name}</label>
             <input name={field.name} id={fieldKey} value={getFormValue(fieldKey)} key={field.name} type={field.type} placeholder={field.placeholder}  onChange={(e)=>handleSubmit(fieldKey,e)}/>
