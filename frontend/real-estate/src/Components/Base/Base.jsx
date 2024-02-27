@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import AddProperty from "../Add Property/AddProperty.jsx"
 import { ENDPOINTS } from "../Properties/PropertyEndpoints.js"
 import { EditProperty } from "../Edit Property/EditProperty.jsx"
+import { DisplayProperty } from "../Display Property/DisplayProperty.jsx"
 
 export default function Base(){
     const { isLoggedIn } = useContext(authContext);
@@ -162,6 +163,7 @@ function DashBoard(){
         <Routes>
           <Route path="/edit-property/:ppdId" element={<EditProperty/>}/>
           <Route path="/add-property" element={<AddProperty/>}/>
+          <Route path="/display-property/:ppdId" element={<DisplayProperty />}/>
           <Route path="/" element={<Properties dataArray={preparePropertyList()}/>}/>
         </Routes>
         {/* <Properties dataArray={data} />  */}
