@@ -61,9 +61,11 @@ export function DisplayProperty(){
     return <>
     <div className="display-container">
         <h1 className="display-header">Property Details</h1>
-        <PropertySection title={'Basic'} data={displayProperty.basic} odd={true}/>
+        <div className="viewImgCon"><img className="viewImg" src= {displayProperty.imageUrl} width="20px"/></div>
+        
+        <PropertySection title={'Basic'}  data={displayProperty.basic} odd={true}/>
         <PropertySection title={'Details'} data={displayProperty.details} odd={false}/>
-        <PropertySection title={'General'} data={displayProperty.general} odd={true}/>
+        <PropertySection title={'General'}  data={displayProperty.general} odd={true}/>
         <PropertySection title={'Location'} data={displayProperty.location} odd={false}/>
         <div className="button-container">
             <button className="edit-property-button" onClick={handleEditProperty}>Edit</button>
@@ -73,7 +75,7 @@ export function DisplayProperty(){
     </>
 }
 
-function PropertySection({title,data,odd}){
+function PropertySection({title,data,odd,img}){
     console.log("checking data",data)
     return <>
     <div className={`section-container ${odd?'odd':""}`}>

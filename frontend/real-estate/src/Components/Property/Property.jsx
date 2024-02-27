@@ -40,7 +40,7 @@ export default function Property({propertyData}){
           }
         <div className="pdata"><p>{propertyData.ppdId}</p></div>        
         <div className="pdata"><a href="#" className="editPro">
-                    <img className="svg-icon" onClick={handleImg} src={imgicon} alt="SVG Icon" />
+                    <img  onClick={handleImg} src={imgicon} alt="SVG Icon" />
                 </a></div>        
         <div className="pdata"><p>{propertyData.propertyType}</p></div>        
         <div className="pdata"><p>{propertyData.contact}</p></div>        
