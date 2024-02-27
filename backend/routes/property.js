@@ -30,10 +30,19 @@ const storage = multer.diskStorage({
 
   
 
-router.post ('/upload', upload.single('image'), (req, res) => {
-    console.log(req.file.filename)
-    let url="http://localhost:8080/"+req.file.path
-    res.json({url:url})
+
+  router.post('/upload', (req, res, next) => {
+    upload.single('image')(req, res, (err) => {
+      if (err) {
+        return res.status(500).json({error: err.message});
+      }
+      if (!req.file) {
+        return res.status(400).json({error: "No file uploaded."});
+      }
+      let url = "http://localhost:8080/" + req.file.path.replace(/\\/g, "/");
+      
+      res.json({url: url});
+    });
   });
 
 router.post('/add-basic', async (req,res)=>{

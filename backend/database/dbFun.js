@@ -13,7 +13,7 @@ let userid=async()=>{
         let idcreate=await idcounter.create(res)   
         return "UGK"+idcreate.userID;
     } 
-     await usermodel.updateOne({ ppdID: user.ppdID }, { $set: { userID: user.userID+1 } })
+     await idcounter.updateOne({ ppdID: user.ppdID }, { $set: { userID: user.userID+1 } })
      
      let newUser="UGK"+(user.userID+1)
     return newUser
