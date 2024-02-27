@@ -279,7 +279,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         </div>
         </> 
         :
-        <div key={fieldKey} className='field-container'>
+        <div key={fieldKey} className='field-container-add-property'>
             <label>{field.name}</label>
             <input name={field.name} id={fieldKey} value={getFormValue(fieldKey)} key={field.name} type={field.type} placeholder={field.placeholder}  onChange={(e)=>handleSubmit(fieldKey,e)}/>
         </div>

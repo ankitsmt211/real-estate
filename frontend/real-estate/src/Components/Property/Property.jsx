@@ -23,6 +23,12 @@ export default function Property({propertyData}){
         navigate(editPropertyPath,{replace:false})
     }
 
+    const handleDisplayProperty = ()=>{
+        let ppdId = propertyData.ppdId
+        let displayPropertyPath = `/home/display-property/${ppdId}`
+        navigate(displayPropertyPath,{replace:false})
+    }
+
 
     return<>
         
@@ -47,7 +53,7 @@ export default function Property({propertyData}){
             <div className="pdata"><p>{propertyData.daysLeft}</p></div>
             
         <div>  <a href="#" className="editPro">
-                    <img className="svg-icon" src={visibility} alt="SVG Icon" />
+                    <img className="svg-icon" src={visibility} alt="SVG Icon" onClick={handleDisplayProperty}/>
                     <img className="svg-icon" src={editicon} alt="SVG Icon" onClick={handleEditProperty}/>
                 </a></div>    
       </section>
