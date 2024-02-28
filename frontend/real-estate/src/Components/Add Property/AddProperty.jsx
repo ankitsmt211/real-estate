@@ -6,7 +6,7 @@ import { ENDPOINTS } from '../Properties/PropertyEndpoints';
 import { basicForm } from './FormData';
 import axios from 'axios';
 
-export default function AddProperty({ppdId}){
+export default function AddProperty({ppdId,setUpdated}){
     let navigate = useNavigate()
     const [currentForm,setCurrentForm] = useState('basic')
     const [propertyImage,setPropertyImage] = useState("")
@@ -64,7 +64,7 @@ export default function AddProperty({ppdId}){
     return<>
     <div className='forms-container'>
         <FormNavigation setCurrentForm={setCurrentForm} currentForm={currentForm}/>
-        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData} setPropertyImage={setPropertyImage} propertyImage={propertyImage} ppdId={ppdId}/>
+        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData} setPropertyImage={setPropertyImage} propertyImage={propertyImage} ppdId={ppdId} setUpdated={setUpdated}/>
     </div>
     </>
 }
@@ -104,7 +104,7 @@ export function FormNavigation({setCurrentForm,currentForm}){
     </>
 }
 
-export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData,setPropertyImage,propertyImage,ppdId }) => {
+export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData,setPropertyImage,propertyImage,ppdId,setUpdated }) => {
     let navigate = useNavigate()
     const [formSection,setFormSection] = useState(formFields.basic)
 
@@ -205,11 +205,11 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         //populate random values
         populatePropertyListData()
    
-        let url = await uploadImg(propertyImage)
+        // let url = await uploadImg(propertyImage)
 
         //add image url on add property request
-        setFormData({...formData,imageUrl:url})
-        console.log(formData)
+        // setFormData({...formData,imageUrl:url})
+        // console.log(formData)
 
         if(ppdId){
             let editPropertyUrl = `${ENDPOINTS.editProperty}/${ppdId}`
@@ -230,6 +230,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
             if(updatedProperty.ok){
                 alert("successfully updated document")
                 console.log(updatedProperty)
+                setUpdated(prev=>!prev)
             }
             return
         }
@@ -248,6 +249,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         }
         if(propertyAdded.ok){
             alert("successfully added document")
+            setUpdated(prev=>!prev)
         }
     }
 
