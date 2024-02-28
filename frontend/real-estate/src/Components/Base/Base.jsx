@@ -146,8 +146,8 @@ function DashBoard(){
         ppdId: property.ppdId,
         imageUrl: property.imageUrl,
         propertyType: property.basic.buildingType,
-        contact: property.general.mobile || "0-0-0-0-0--00-",
-        area: property.details['area'],
+        contact: property.general && property.general.mobile && property.general.mobile !== ''? property.general.mobile : "0-0-0-0-0--00-",
+        area: property.details && property.details.area?property.details['area']:"",
         views: property.views || "01",
         status: property.status || "Unsold",
         daysLeft: property.daysLeft || "10"
