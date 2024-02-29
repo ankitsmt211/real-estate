@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
       }
       const filePath = req.file.path;
       console.log(filePath)
-      let url = "http://localhost:8080/" + req.file.path.replace(/\\/g, "/");
+      let url = req.file.path.replace(/\\/g, "/");
       setTimeout(async() => {
            
         let exists=await propertyModel.findOne({imageUrl:url}) 
