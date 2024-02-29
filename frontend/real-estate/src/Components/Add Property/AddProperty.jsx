@@ -135,7 +135,8 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
                 },
             });
             let url="https://real-estate-ckbm.onrender.com/"+response.data.url
-            console.log(url)
+            console.log(url,"hardcoded url")
+            console.log(response.data.url,"response url")
             setFormData(data => ({
                 ...data,
                 imageUrl: url
