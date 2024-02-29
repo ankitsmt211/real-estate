@@ -134,7 +134,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            let url=authEndpoints.base+response.data.url
+            let url=authEndpoints.base+"/"+response.data.url
             console.log(url)
             setFormData(data => ({
                 ...data,
