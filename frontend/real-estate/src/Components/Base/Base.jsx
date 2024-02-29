@@ -13,6 +13,7 @@ import AddProperty from "../Add Property/AddProperty.jsx"
 import { ENDPOINTS } from "../Properties/PropertyEndpoints.js"
 import { EditProperty } from "../Edit Property/EditProperty.jsx"
 import { DisplayProperty } from "../Display Property/DisplayProperty.jsx"
+import { authEndpoints } from "../Auth/AuthEndpoints.js"
 
 export default function Base(){
     const { isLoggedIn } = useContext(authContext);
@@ -35,7 +36,7 @@ function DashBoard(){
   const [properties,setProperties] = useState([])
   const [updated,setUpdated] = useState(false)
   useEffect(() => {
-    let testUrl='http://localhost:8080/test'
+    let testUrl=`${authEndpoints.base}/test`
     const fetchUser = async () => {
       const token = localStorage.getItem('token'); 
       

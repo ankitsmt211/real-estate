@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../Properties/PropertyEndpoints';
 import { basicForm,generalForm,locationForm,detailsForm } from './FormData';
 import axios from 'axios';
+import { authEndpoints } from '../Auth/AuthEndpoints';
 
 export default function AddProperty({ppdId,setUpdated}){
     let navigate = useNavigate()
@@ -128,12 +129,12 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         formData.append('image', file);
       
         try {
-            const response = await axios.post('http://localhost:8080/upload', formData, {
+            const response = await axios.post(`${authEndpoints.base}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            let url=response.data.url
+            let url=authEndpoints.base+response.data.url
             console.log(url)
             setFormData(data => ({
                 ...data,
