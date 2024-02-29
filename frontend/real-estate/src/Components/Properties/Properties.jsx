@@ -29,7 +29,7 @@ const Properties = ({ dataArray }) => {
 });
 
  const handleAddProperty = ()=>{
-  navigate('/home/add-property')
+  navigate('/add-property')
  }
     return (
         <div className="list-container">

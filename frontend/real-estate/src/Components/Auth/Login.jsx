@@ -39,7 +39,7 @@ const Login = () => {
     }else{   if (responseData.status=="success") {
       const token = responseData.token;
       handleToken(token);
-      navigate('/home');
+      navigate('/');
     }
     if (!responseData.status) {
       alert(responseData.message);

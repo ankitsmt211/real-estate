@@ -50,7 +50,7 @@ export function DisplayProperty(){
     },[ppdId])
 
     const handleEditProperty = ()=>{
-        let editPropertyPath = `/home/edit-property/${ppdId}`
+        let editPropertyPath = `/edit-property/${ppdId}`
         navigate(editPropertyPath,{replace:false})
     }
 
