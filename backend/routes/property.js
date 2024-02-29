@@ -7,6 +7,7 @@ const dbFun = require('../database/dbFun')
 const multer = require('multer');
 const cors = require('cors');
 const uploads = multer({ dest: 'uploads/' });
+const fs = require('fs');
 
 
 const storage = multer.diskStorage({
@@ -39,7 +40,20 @@ const storage = multer.diskStorage({
       if (!req.file) {
         return res.status(400).json({error: "No file uploaded."});
       }
+      const filePath = req.file.path;
+      console.log(filePath)
       let url = "http://localhost:8080/" + req.file.path.replace(/\\/g, "/");
+      setTimeout(async() => {
+           
+        let exists=await propertyModel.findOne({imageUrl:url}) 
+                if (!exists) {
+                    fs.unlink(filePath, err => {
+                        if (err) console.error("Error deleting image:", err);
+                        else console.log("Image successfully deleted due to no DB reference.");
+                    });
+                }
+           
+        }, 600000);
       
       res.json({url: url});
     });
