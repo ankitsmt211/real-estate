@@ -20,7 +20,7 @@ export default function Base(){
     return <>
     <BrowserRouter>
         <Routes>
-            <Route path="/home/*" element={isLoggedIn ? <DashBoard /> : <Navigate to={'/login'} />}/>
+            <Route path="/*" element={isLoggedIn ? <DashBoard /> : <Navigate to={'/login'} />}/>
             {/* <Route path="/home/add-property" element={<AddProperty/>}/> */}
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>  
