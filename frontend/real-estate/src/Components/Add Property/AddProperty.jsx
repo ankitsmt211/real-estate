@@ -212,7 +212,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
                     console.log("img");
                     console.log(formData.imageUrl)
                     if (formData.imageUrl=="") {
-                        return ["Image is not uploaded",false]
+                        return ["Please add image in General Info",false]
                     }
                     return ["",true]
                 }

@@ -55,7 +55,7 @@ export function DisplayProperty(){
     }
 
     const handleGoHome = ()=>{
-        navigate("/home",{replace:false})
+        navigate("/",{replace:false})
     }
 
     return <>
