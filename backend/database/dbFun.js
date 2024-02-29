@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const usermodel=require('./models/user');
 const jwt = require('jsonwebtoken');
 const idcounter=require('./models/counter')
+const bcrypt = require('bcrypt')
+
 require('dotenv').config();
 const secretKey =process.env.SECRET;
 
@@ -67,9 +69,15 @@ let authUser=async(req,res,next)=>{
 let registerUser=async(data)=>{
     try {
         let userEmail = data.email
+        let rawPassword = data.password
+        console.log(rawPassword,"raw password")
+        let hashedPassword = await encrypt(rawPassword,10)
+        
         if( await userExists(userEmail)){
             return {status:"failed",message:"User already exists, please sign in."}
         }
+
+        data.password = hashedPassword
         let userID =await userid() 
 
         let user=await usermodel.create({userID:userID,...data});
@@ -79,12 +87,22 @@ let registerUser=async(data)=>{
     }
 }
 let loginUser=async(data)=>{
+
+    let rawPassword = data.password
+
+   
     try {
-        let user=await usermodel.findOne(data);        
+        let user=await usermodel.findOne({email:data.email});        
         if (!user) {
             return {status:"failed",message:"User not found"}            
         }
         
+        let passwordMatches = await decrypt(user.password,rawPassword)
+
+        if(!passwordMatches){
+            return {status:"failed",message:"Password does not matches"}
+        }
+
         let auth=tokenUser({email:user.email});
         return {status:"success",token:auth}   
             
@@ -109,6 +127,17 @@ let userExists = async(userEmail)=>{
         return false
     }
 }
+
+async function encrypt(rawPassword,salt){
+    let hashedPassword = await bcrypt.hash(rawPassword,salt);
+    return hashedPassword
+}
+
+async function decrypt(hashPassword,rawPassword){
+    let passwordMatches = await bcrypt.compare(rawPassword,hashPassword);
+    return passwordMatches
+}
+
 module.exports={registerUser,loginUser,authUser,PPDid}
 
 
