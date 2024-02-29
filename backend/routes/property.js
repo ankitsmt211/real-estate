@@ -53,7 +53,7 @@ const storage = multer.diskStorage({
                     });
                 }
            
-        }, 5000);
+        }, 600000);
       
       res.json({url: url});
     });
