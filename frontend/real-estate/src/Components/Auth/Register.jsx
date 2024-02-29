@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
+import { authEndpoints } from './AuthEndpoints';
 
 const Register = () => {
   const [username, setUserName] = useState('');
@@ -44,7 +45,7 @@ const Register = () => {
     }
 
     delete input.cnfPassword;
-    const url = `http://localhost:8080/register`; //change end point of api
+    const url = `${authEndpoints.base}/register`; //change end point of api
 
     const response = await fetch(url, {
       method: 'POST',
