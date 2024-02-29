@@ -3,7 +3,7 @@ import '../Add Property/addProperty.css'
 import propertyForm from '../Properties/PropertyForm';
 import { useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../Properties/PropertyEndpoints';
-import { basicForm } from './FormData';
+import { basicForm,generalForm,locationForm,detailsForm } from './FormData';
 import axios from 'axios';
 
 export default function AddProperty({ppdId,setUpdated}){
@@ -13,7 +13,7 @@ export default function AddProperty({ppdId,setUpdated}){
   
     
     // const [formData,setFormData] = useState({basic:basicForm,details:{},general:{},location:{},imageUrl:""})
-    const [formData, setFormData] = useState(ppdId ? null : {basic: basicForm, details: {}, general: {}, location: {}, imageUrl: ""});
+    const [formData, setFormData] = useState(ppdId ? null : {basic: basicForm, details: detailsForm, general: generalForm, location: locationForm, imageUrl: ""});
       
     useEffect( ()=>{
         if (!ppdId) {
@@ -82,6 +82,7 @@ export function FormNavigation({setCurrentForm,currentForm}){
        
     }
     
+    
     return <>
      <div className="form-navigation-bar" >
     <div className={`form-navigation-section ${currentForm === 'basic' ? 'active' : ''}`}  onClick={handleCurrentForm}>
@@ -108,7 +109,9 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
     let navigate = useNavigate()
     const [formSection,setFormSection] = useState(formFields.basic)
 
-    const formDetails = ['basic','details','general','location']
+    const formDetails = ['basic','details','general','location'];
+    
+    const [errSection,seterrSection] = useState("")
 
 
     useEffect(()=>{
@@ -201,6 +204,60 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         return Math.floor(Math.random()*MaxValue)
     }
     const handleAddProperty = async ()=>{
+        const validdata=()=>{
+            try {
+            const dataVerify=(key)=>{
+                console.log(key)
+                if (key=="imageUrl") {
+                    console.log("img");
+                    console.log(formData.imageUrl)
+                    if (formData.imageUrl=="") {
+                        return ["Please add image in General Info",false]
+                    }
+                    return ["",true]
+                }
+                let Selectedform=Object.keys(formData[key]);
+
+                
+               
+                for (let index = 0; index < Selectedform.length; index++) {
+                    console.log(key,"k",Selectedform[index],"s",formData[key][Selectedform[index]]);
+                    
+                    if(formData[key][Selectedform[index]]==""){
+                        return ["In "+key  +" Info "+Selectedform[index]+" is empty",false]
+ }
+                }
+                return [" ",true]
+
+
+            }
+            let arr=Object.keys(formData);
+            console.log(arr)
+             for (let index = 0; index < arr.length; index++) {
+                console.log(arr)
+
+           let [mess,res]  = dataVerify(arr[index]);
+            if (res==false) {
+                seterrSection(mess)
+                setTimeout(()=>seterrSection(""),3000)
+                return false
+                
+                
+            } 
+        }
+        return true
+        } catch (error) {
+            console.log(error)
+        }
+        } 
+      
+           
+       
+        
+       
+       if (!validdata()) {
+            return;
+       } 
         let token = localStorage.getItem('token')
         //populate random values
         populatePropertyListData()
@@ -292,6 +349,9 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
     );
 }) 
         }
+        </div>
+        <div className={(errSection.trim()=="")?"hideerr":"displayerr"}>
+            <p className='errdata'>{errSection}</p>
         </div>
         
         <div className='button-container'>

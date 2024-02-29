@@ -140,6 +140,11 @@ div .active{
 .cancel-button:hover{
     cursor: pointer;
 }
-
+.hideerr{
+    display: none;
+}
+.errdata{
+    color: red;
+}
 
 
