@@ -19,13 +19,13 @@ export default function Property({propertyData}){
 
     const handleEditProperty = ()=>{
         let ppdId = propertyData.ppdId
-        let editPropertyPath = `/home/edit-property/${ppdId}`
+        let editPropertyPath = `/edit-property/${ppdId}`
         navigate(editPropertyPath,{replace:false})
     }
 
     const handleDisplayProperty = ()=>{
         let ppdId = propertyData.ppdId
-        let displayPropertyPath = `/home/display-property/${ppdId}`
+        let displayPropertyPath = `/display-property/${ppdId}`
         navigate(displayPropertyPath,{replace:false})
     }
 

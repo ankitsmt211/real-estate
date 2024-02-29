@@ -50,12 +50,12 @@ export function DisplayProperty(){
     },[ppdId])
 
     const handleEditProperty = ()=>{
-        let editPropertyPath = `/home/edit-property/${ppdId}`
+        let editPropertyPath = `/edit-property/${ppdId}`
         navigate(editPropertyPath,{replace:false})
     }
 
     const handleGoHome = ()=>{
-        navigate("/home",{replace:false})
+        navigate("/",{replace:false})
     }
 
     return <>

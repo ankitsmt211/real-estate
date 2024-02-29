@@ -117,7 +117,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
     },[currentForm])
 
     const handleCancel = ()=>{
-        navigate("/home",{replace:true})
+        navigate("/",{replace:true})
     }
 
     const uploadImg = async (file) => {
