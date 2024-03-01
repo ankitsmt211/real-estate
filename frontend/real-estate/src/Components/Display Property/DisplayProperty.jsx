@@ -3,11 +3,13 @@ import { ENDPOINTS } from "../Properties/PropertyEndpoints";
 import { useNavigate,useParams } from "react-router-dom";
 import '../Display Property/displayProperty.css'
 import propertyForm from "../Properties/PropertyForm";
+import { Loader } from "../Loader/Loader";
 
 export function DisplayProperty(){
     let navigate = useNavigate()
     let {ppdId} = useParams()
     const [displayProperty,setDisplayProperty] = useState({basic: {}, details: {}, general: {}, location: {}, imageUrl: ""})
+    const [loading,setLoading] = useState(true)
 
     useEffect(()=>{
         const token = localStorage.getItem('token'); 
@@ -35,10 +37,11 @@ export function DisplayProperty(){
 
               //filtering properties with matching ppdId
               console.log("checking ppdid",ppdId)
+
               let propertyWithId = propertiesData.filter(property=>property.ppdId===ppdId)
               console.log("property with id",propertyWithId)
               setDisplayProperty(propertyWithId[0]);
-    
+              setLoading(false)
           }
           catch(error){
             console.error('Error', error);
@@ -48,6 +51,17 @@ export function DisplayProperty(){
     
         getProperties()
     },[ppdId])
+
+  
+    return loading ? (
+        <Loader/>
+    ) : (
+        <PropertyDetails displayProperty={displayProperty} />
+    );
+}
+
+function PropertyDetails({displayProperty}){
+    let navigate = useNavigate()
 
     const handleEditProperty = ()=>{
         let editPropertyPath = `/edit-property/${ppdId}`
