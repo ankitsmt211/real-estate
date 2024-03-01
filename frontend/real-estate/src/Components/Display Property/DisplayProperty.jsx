@@ -9,7 +9,7 @@ export function DisplayProperty(){
     let navigate = useNavigate()
     let {ppdId} = useParams()
     const [displayProperty,setDisplayProperty] = useState({basic: {}, details: {}, general: {}, location: {}, imageUrl: ""})
-    const [loading,setLoading] = useState(true)
+    const [isLoading,setIsLoading] = useState(true)
 
     useEffect(()=>{
         const token = localStorage.getItem('token'); 
@@ -41,7 +41,7 @@ export function DisplayProperty(){
               let propertyWithId = propertiesData.filter(property=>property.ppdId===ppdId)
               console.log("property with id",propertyWithId)
               setDisplayProperty(propertyWithId[0]);
-              setLoading(false)
+              setIsLoading(false)
           }
           catch(error){
             console.error('Error', error);
@@ -53,7 +53,7 @@ export function DisplayProperty(){
     },[ppdId])
 
   
-    return loading ? (
+    return isLoading ? (
         <Loader/>
     ) : (
         <PropertyDetails displayProperty={displayProperty} />
