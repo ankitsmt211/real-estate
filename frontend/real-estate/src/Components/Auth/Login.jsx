@@ -2,8 +2,6 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
 import { authContext } from '../../App';
-import { authEndpoints } from './AuthEndpoints';
-import { ENDPOINTS } from '../Properties/PropertyEndpoints';
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -21,7 +19,7 @@ const Login = () => {
     e.preventDefault();
 
     //change url for different endpoint
-    const url = `${authEndpoints.base}/login`;
+    const url = import.meta.env.VITE_LOGIN_ENDPOINT_URL;
 
     const user = { email, password };
 

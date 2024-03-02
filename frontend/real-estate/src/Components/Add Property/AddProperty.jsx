@@ -2,10 +2,8 @@ import { useEffect,  useState } from 'react';
 import '../Add Property/addProperty.css'
 import propertyForm from '../Properties/PropertyForm';
 import { useNavigate } from 'react-router-dom';
-import { ENDPOINTS } from '../Properties/PropertyEndpoints';
 import { basicForm,generalForm,locationForm,detailsForm } from './FormData';
 import axios from 'axios';
-import { authEndpoints } from '../Auth/AuthEndpoints';
 
 export default function AddProperty({ppdId,setUpdated}){
     let navigate = useNavigate()
@@ -28,8 +26,9 @@ export default function AddProperty({ppdId,setUpdated}){
         }
     
         const getProperties = async ()=>{
+            let getPropertyUrl = import.meta.env.VITE_GET_PROPERTY_ENDPOINT_URL
           try{
-            let properties = await fetch(ENDPOINTS.getProperties,{
+            let properties = await fetch(getPropertyUrl,{
               method:'GET',
               headers:{
                 'Content-Type': 'application/json',
@@ -129,12 +128,13 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         formData.append('image', file);
       
         try {
-            const response = await axios.post(`${authEndpoints.base}/upload`, formData, {
+            let uploadUrl = import.meta.env.VITE_UPLOAD_IMAGE_ENDPOINT_URL
+            const response = await axios.post(uploadUrl, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            let url="https://real-estate-ckbm.onrender.com/"+response.data.url
+            let url= import.meta.env.VITE_BASE_ENDPOINT_URL+response.data.url
             console.log(url,"hardcoded url")
             console.log(response.data.url,"response url")
             setFormData(data => ({
@@ -271,7 +271,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         // console.log(formData)
 
         if(ppdId){
-            let editPropertyUrl = `${ENDPOINTS.editProperty}/${ppdId}`
+            let editPropertyUrl = `${import.meta.env.VITE_EDIT_PROPERTY_ENDPOINT_URL}/${ppdId}`
             let updatedProperty = await fetch(editPropertyUrl,{
                 method:'PUT',
                 headers:{
@@ -293,7 +293,8 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
             }
             return
         }
-        let propertyAdded = await fetch(ENDPOINTS.submit,{
+        let addPropertyUrl = import.meta.env.VITE_ADD_PROPERTY_ENDPOINT_URL
+        let propertyAdded = await fetch(addPropertyUrl,{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',
