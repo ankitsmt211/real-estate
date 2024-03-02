@@ -116,7 +116,7 @@ const Register = () => {
             required={true}
           />
 
-          <button className={`signup-btn ${isLoading?"button-clicked":""}`} onClick={registerUser}>
+          <button className={`signup-btn ${isLoading?"button-clicked":""}`} onClick={registerUser} disabled={isLoading}>
             Sign Up
           </button>
         </form>
