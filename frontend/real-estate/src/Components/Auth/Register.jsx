@@ -36,9 +36,6 @@ const Register = () => {
     return true;
   };
 
-    //debugging
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
-
   const registerUser = async (e) => {
     setIsLoading(true)
     e.preventDefault();
@@ -47,8 +44,6 @@ const Register = () => {
     if (!handleValidation(input)) {
       return;
     }
-
-    sleep(5000)
 
     delete input.cnfPassword;
     const url = `http://localhost:8080/register`; //change end point of api

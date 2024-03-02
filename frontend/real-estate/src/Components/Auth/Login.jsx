@@ -16,18 +16,13 @@ const Login = () => {
     setIsLoggedIn(true);
   };
 
-  //debugging
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-
   const handleLogin = async (e) => {
-    setIsLoading(true)
     e.preventDefault();
     
     //change url for different endpoint
     const url = `http://localhost:8080/login`;
 
     const user = { email, password };
-    await sleep(5000)
 
     const response = await fetch(url, {
       method: 'POST',
