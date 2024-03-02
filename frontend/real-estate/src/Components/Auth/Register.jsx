@@ -46,7 +46,7 @@ const Register = () => {
     }
 
     delete input.cnfPassword;
-    const url = `http://localhost:8080/register`; //change end point of api
+    const url = import.meta.env.VITE_REGISTER_ENDPOINT_URL; //change end point of api
 
     const response = await fetch(url, {
       method: 'POST',
