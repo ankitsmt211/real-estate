@@ -56,8 +56,13 @@ button.signup-btn {
   margin-top: 10px;
 }
 
+button.button-clicked{
+  background-color: #8f94c5;
+}
+
 button.signup-btn:hover {
-  background-color: #0e1b97;
+  /* background-color: #0e1b97; */
+  font-size: large;
 }
 
 .signup-link,
@@ -74,4 +79,9 @@ button.signup-btn:hover {
 .authcon{
   display: flex;
   justify-content: center;
+}
+
+.signup-link:hover,
+.register-link:hover {
+  font-size: large;
 }

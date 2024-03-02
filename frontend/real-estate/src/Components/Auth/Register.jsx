@@ -7,6 +7,7 @@ const Register = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [cnfPassword, setCnfPassword] = useState('');
+  const [isLoading,setIsLoading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -35,13 +36,19 @@ const Register = () => {
     return true;
   };
 
+    //debugging
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
   const registerUser = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
     const input = { username, email, password, cnfPassword };
     
     if (!handleValidation(input)) {
       return;
     }
+
+    sleep(5000)
 
     delete input.cnfPassword;
     const url = `http://localhost:8080/register`; //change end point of api
@@ -67,6 +74,7 @@ const Register = () => {
       }
      
     }
+    setIsLoading(true)
   };
   return (
     <div className='authcon'>
@@ -108,7 +116,7 @@ const Register = () => {
             required={true}
           />
 
-          <button className="signup-btn" onClick={registerUser}>
+          <button className={`signup-btn ${isLoading?"button-clicked":""}`} onClick={registerUser} disabled={isLoading}>
             Sign Up
           </button>
         </form>
