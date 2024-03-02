@@ -134,7 +134,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            let url= import.meta.env.VITE_BASE_ENDPOINT_URL + response.data.url
+            let url = response.data.url
             console.log(url)
             setFormData(data => ({
                 ...data,
