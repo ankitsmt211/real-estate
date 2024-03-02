@@ -56,7 +56,7 @@ export function DisplayProperty(){
     return isLoading ? (
         <Loader/>
     ) : (
-        <PropertyDetails displayProperty={displayProperty,ppdId} />
+        <PropertyDetails displayProperty={displayProperty} ppdId={ppdId} />
     );
 }
 
