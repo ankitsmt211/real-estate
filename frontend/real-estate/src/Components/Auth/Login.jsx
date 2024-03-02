@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(authContext);
+  const [isLoading,setIsLoading] = useState(false)
 
   const handleToken = (token) => {
     
@@ -17,7 +18,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    
     //change url for different endpoint
     const url = import.meta.env.VITE_LOGIN_ENDPOINT_URL;
 
@@ -45,7 +46,7 @@ const Login = () => {
       alert(responseData.message);
     }  }
 
-   
+    setIsLoading(false)
   };
 
   return (
@@ -71,7 +72,7 @@ const Login = () => {
             placeholder="Password"
             required={true}
           />
-          <button className="signup-btn" onClick={handleLogin}>
+          <button className={`signup-btn ${isLoading?"button-clicked":""}`} onClick={handleLogin} disabled={isLoading}>
             Sign In
           </button>
         </form>

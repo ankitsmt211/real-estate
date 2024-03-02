@@ -7,6 +7,7 @@ const Register = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [cnfPassword, setCnfPassword] = useState('');
+  const [isLoading,setIsLoading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -36,6 +37,7 @@ const Register = () => {
   };
 
   const registerUser = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
     const input = { username, email, password, cnfPassword };
     
@@ -67,6 +69,7 @@ const Register = () => {
       }
      
     }
+    setIsLoading(true)
   };
   return (
     <div className='authcon'>
@@ -108,7 +111,7 @@ const Register = () => {
             required={true}
           />
 
-          <button className="signup-btn" onClick={registerUser}>
+          <button className={`signup-btn ${isLoading?"button-clicked":""}`} onClick={registerUser} disabled={isLoading}>
             Sign Up
           </button>
         </form>
