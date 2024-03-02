@@ -42,6 +42,7 @@ const Register = () => {
     const input = { username, email, password, cnfPassword };
     
     if (!handleValidation(input)) {
+      setIsLoading(false)
       return;
     }
 
@@ -69,7 +70,7 @@ const Register = () => {
       }
      
     }
-    setIsLoading(true)
+    setIsLoading(false)
   };
   return (
     <div className='authcon'>
