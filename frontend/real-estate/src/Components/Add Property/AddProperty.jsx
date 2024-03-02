@@ -128,14 +128,15 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         formData.append('image', file);
       
         try {
-            let uploadImageUrl = import.meta.env.VITE_UPLOAD_IMAGE_ENDPOINT_URL
-            const response = await axios.post(uploadImageUrl, formData, {
+            let uploadUrl = import.meta.env.VITE_UPLOAD_IMAGE_ENDPOINT_URL
+            const response = await axios.post(uploadUrl, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            let url = import.meta.env.VITE_BASE_ENDPOINT_URL + response.data.url
-            console.log(url)
+            let url= import.meta.env.VITE_BASE_ENDPOINT_URL+response.data.url
+            console.log(url,"hardcoded url")
+            console.log(response.data.url,"response url")
             setFormData(data => ({
                 ...data,
                 imageUrl: url
