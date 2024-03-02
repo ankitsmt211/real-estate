@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(authContext);
+  const [isLoading,setIsLoading] = useState(false)
 
   const handleToken = (token) => {
     
@@ -15,13 +16,18 @@ const Login = () => {
     setIsLoggedIn(true);
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  //debugging
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+  const handleLogin = async (e) => {
+    setIsLoading(true)
+    e.preventDefault();
+    
     //change url for different endpoint
     const url = `http://localhost:8080/login`;
 
     const user = { email, password };
+    await sleep(5000)
 
     const response = await fetch(url, {
       method: 'POST',
@@ -45,7 +51,7 @@ const Login = () => {
       alert(responseData.message);
     }  }
 
-   
+    setIsLoading(false)
   };
 
   return (
@@ -71,7 +77,7 @@ const Login = () => {
             placeholder="Password"
             required={true}
           />
-          <button className="signup-btn" onClick={handleLogin}>
+          <button className={`signup-btn ${isLoading?"button-clicked":""}`} onClick={handleLogin} disabled={isLoading}>
             Sign In
           </button>
         </form>
