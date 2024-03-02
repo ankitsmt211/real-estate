@@ -56,11 +56,11 @@ export function DisplayProperty(){
     return isLoading ? (
         <Loader/>
     ) : (
-        <PropertyDetails displayProperty={displayProperty} />
+        <PropertyDetails displayProperty={displayProperty} ppdId={ppdId} />
     );
 }
 
-function PropertyDetails({displayProperty}){
+function PropertyDetails({displayProperty,ppdId}){
     let navigate = useNavigate()
 
     const handleEditProperty = ()=>{
