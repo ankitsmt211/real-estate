@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     
     //change url for different endpoint
-    const url = `http://localhost:8080/login`;
+    const url = import.meta.env.VITE_LOGIN_ENDPOINT_URL;
 
     const user = { email, password };
 

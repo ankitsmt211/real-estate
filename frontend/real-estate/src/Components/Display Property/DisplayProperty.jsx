@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { ENDPOINTS } from "../Properties/PropertyEndpoints";
 import { useNavigate,useParams } from "react-router-dom";
 import '../Display Property/displayProperty.css'
 import propertyForm from "../Properties/PropertyForm";
@@ -19,8 +18,9 @@ export function DisplayProperty(){
         }
     
         const getProperties = async ()=>{
+            let getPropertyUrl = import.meta.env.VITE_GET_PROPERTY_ENDPOINT_URL
           try{
-            let properties = await fetch(ENDPOINTS.getProperties,{
+            let properties = await fetch(getPropertyUrl,{
               method:'GET',
               headers:{
                 'Content-Type': 'application/json',
