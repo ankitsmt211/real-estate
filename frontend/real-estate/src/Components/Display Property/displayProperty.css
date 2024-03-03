@@ -15,7 +15,7 @@
 }
 .viewImg{
     padding: 5px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     position: relative;
     width: 301px;
     margin-left: auto;
@@ -112,4 +112,14 @@
 
 .edit-property-button, .goto-home-button:hover{
     cursor: pointer;
+}
+
+div.backup-house-svg-container{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+div.display-backup{
+    display: none;
 }
