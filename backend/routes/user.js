@@ -5,7 +5,6 @@ const router = express.Router()
 
 router.post('/register',async(req,res)=>{
     try {
-        console.log(req.body)
         let response = await dbFun.registerUser(req.body);
         if (response.status=='failed') {
            return res.status(404).json(response);   

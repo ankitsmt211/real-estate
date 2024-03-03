@@ -32,14 +32,11 @@ export function DisplayProperty(){
               }
     
               let propertiesJson = await properties.json()
-              console.log(propertiesJson)
               let propertiesData = propertiesJson.data
 
               //filtering properties with matching ppdId
-              console.log("checking ppdid",ppdId)
 
               let propertyWithId = propertiesData.filter(property=>property.ppdId===ppdId)
-              console.log("property with id",propertyWithId)
               setDisplayProperty(propertyWithId[0]);
               setIsLoading(false)
           }
@@ -89,8 +86,7 @@ function PropertyDetails({displayProperty,ppdId}){
     </>
 }
 
-function PropertySection({title,data,odd,img}){
-    console.log("checking data",data)
+function PropertySection({title,data,odd}){
     return <>
     <div className={`section-container ${odd?'odd':""}`}>
         <h2 className="section-header">{title}</h2>

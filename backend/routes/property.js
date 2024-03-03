@@ -147,7 +147,6 @@ router.post('/add-property',dbFun.authUser, async (req, res) => {
     const propertyData = req.body;
 
     let userId = req.user._id
-    console.log(req.user)
     propertyData.owner=userId
     try {
         let ppdID = await dbFun.PPDid()
