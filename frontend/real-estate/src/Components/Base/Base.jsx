@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import AddProperty from "../Add Property/AddProperty.jsx"
 import { EditProperty } from "../Edit Property/EditProperty.jsx"
 import { DisplayProperty } from "../Display Property/DisplayProperty.jsx"
+import { Loader } from "../Loader/Loader.jsx"
 
 export default function Base(){
     const { isLoggedIn } = useContext(authContext);
@@ -33,6 +34,8 @@ function DashBoard(){
   const [userdata, setuserdata] = useState("")
   const [properties,setProperties] = useState([])
   const [updated,setUpdated] = useState(false)
+  const [isLoading,setIsLoading] = useState(true)
+
   useEffect(() => {
     let testUrl = import.meta.env.VITE_GET_USER_ENDPOINT_URL
     const fetchUser = async () => {
@@ -92,6 +95,7 @@ function DashBoard(){
           let propertiesJson = await properties.json()
           let propertiesData = propertiesJson.data
           setProperties(propertiesData);
+          setIsLoading(false)
 
       }
       catch(error){
@@ -105,7 +109,6 @@ function DashBoard(){
 
   useEffect(() => {
     preparePropertyList();
- 
 }, [properties]);
 
 
@@ -131,10 +134,10 @@ function DashBoard(){
       <div className='eleArea'>
         <TopBar userdata={userdata}/>
         <Routes>
-          <Route path="/edit-property/:ppdId" element={<EditProperty setUpdated={setUpdated}/>}/>
-          <Route path="/add-property" element={<AddProperty setUpdated={setUpdated}/>}/>
+          <Route path="/edit-property/:ppdId" element={<EditProperty setUpdated={setUpdated} setIsLoading={setIsLoading}/>}/>
+          <Route path="/add-property" element={<AddProperty setUpdated={setUpdated} setIsLoading={setIsLoading}/>}/>
           <Route path="/display-property/:ppdId" element={<DisplayProperty />}/>
-          <Route path="/" element={<Properties dataArray={preparePropertyList()}/>}/>
+          <Route path="/" element={ isLoading?<Loader/>:<Properties dataArray={preparePropertyList()}/>}/>
         </Routes>
         {/* <Properties dataArray={data} />  */}
       </div>

@@ -3,6 +3,8 @@ import { useNavigate,useParams } from "react-router-dom";
 import '../Display Property/displayProperty.css'
 import propertyForm from "../Properties/PropertyForm";
 import { Loader } from "../Loader/Loader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 export function DisplayProperty(){
     let navigate = useNavigate()
@@ -32,14 +34,11 @@ export function DisplayProperty(){
               }
     
               let propertiesJson = await properties.json()
-              console.log(propertiesJson)
               let propertiesData = propertiesJson.data
 
               //filtering properties with matching ppdId
-              console.log("checking ppdid",ppdId)
 
               let propertyWithId = propertiesData.filter(property=>property.ppdId===ppdId)
-              console.log("property with id",propertyWithId)
               setDisplayProperty(propertyWithId[0]);
               setIsLoading(false)
           }
@@ -62,6 +61,7 @@ export function DisplayProperty(){
 
 function PropertyDetails({displayProperty,ppdId}){
     let navigate = useNavigate()
+    const [displayBackupImage,setDisplayBackupImage] = useState(true)
 
     const handleEditProperty = ()=>{
         let editPropertyPath = `/edit-property/${ppdId}`
@@ -72,10 +72,17 @@ function PropertyDetails({displayProperty,ppdId}){
         navigate("/",{replace:false})
     }
 
+    const loadBackupImage = ()=>{
+        setDisplayBackupImage(false)
+    }
+
     return <>
     <div className="display-container">
         <h1 className="display-header">Property Details</h1>
-        <div className="viewImgCon"><img className="viewImg" src= {displayProperty.imageUrl} width="20px"/></div>
+        <div className="viewImgCon"><img className="viewImg" src= {displayProperty.imageUrl} width="20px" onError={loadBackupImage} hidden={!displayBackupImage}/></div>
+        <div className={`backup-house-svg-container ${displayBackupImage?"display-backup":""}`}>
+        <FontAwesomeIcon icon={faHouse} size="10x" />
+        </div>
         
         <PropertySection title={'Basic'}  data={displayProperty.basic} odd={true}/>
         <PropertySection title={'Details'} data={displayProperty.details} odd={false}/>
@@ -89,8 +96,7 @@ function PropertyDetails({displayProperty,ppdId}){
     </>
 }
 
-function PropertySection({title,data,odd,img}){
-    console.log("checking data",data)
+function PropertySection({title,data,odd}){
     return <>
     <div className={`section-container ${odd?'odd':""}`}>
         <h2 className="section-header">{title}</h2>
