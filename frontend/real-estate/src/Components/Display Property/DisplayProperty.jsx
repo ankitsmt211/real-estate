@@ -48,8 +48,7 @@ export function DisplayProperty(){
           }
         }
     
-        // getProperties()
-        setTimeout(getProperties,5000)
+        getProperties()
     },[ppdId])
 
   
