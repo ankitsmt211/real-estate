@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { basicForm,generalForm,locationForm,detailsForm } from './FormData';
 import axios from 'axios';
 
-export default function AddProperty({ppdId,setUpdated}){
+export default function AddProperty({ppdId,setUpdated,setIsLoading}){
     let navigate = useNavigate()
     const [currentForm,setCurrentForm] = useState('basic')
     const [propertyImage,setPropertyImage] = useState("")
@@ -64,7 +64,7 @@ export default function AddProperty({ppdId,setUpdated}){
     return<>
     <div className='forms-container'>
         <FormNavigation setCurrentForm={setCurrentForm} currentForm={currentForm}/>
-        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData} setPropertyImage={setPropertyImage} propertyImage={propertyImage} ppdId={ppdId} setUpdated={setUpdated}/>
+        <FormComponent formFields={propertyForm} currentForm={currentForm} setCurrentForm={setCurrentForm} setFormData={setFormData} formData={formData} setPropertyImage={setPropertyImage} propertyImage={propertyImage} ppdId={ppdId} setUpdated={setUpdated} setIsLoading={setIsLoading}/>
     </div>
     </>
 }
@@ -101,7 +101,7 @@ export function FormNavigation({setCurrentForm,currentForm}){
     </>
 }
 
-export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData,setPropertyImage,propertyImage,ppdId,setUpdated }) => {
+export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormData,formData,setPropertyImage,propertyImage,ppdId,setUpdated,setIsLoading }) => {
     let navigate = useNavigate()
     const [formSection,setFormSection] = useState(formFields.basic)
 
@@ -273,6 +273,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
             if(updatedProperty.ok){
                 alert("successfully updated document")
                 setUpdated(prev=>!prev)
+                setIsLoading(true)
             }
             return
         }
@@ -293,6 +294,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         if(propertyAdded.ok){
             alert("successfully added document")
             setUpdated(prev=>!prev)
+            setIsLoading(true)
         }
     }
 
