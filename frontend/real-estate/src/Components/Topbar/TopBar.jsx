@@ -1,12 +1,11 @@
 import "./topbar.css";
 import usersvg from "../../assets/usericon.svg"
-import React, { useState ,useRef} from 'react';
+import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
 export default function TopBar({userdata}){
   let navigate=useNavigate();
-  console.log(userdata)
   let logout=()=>{
    
     localStorage.removeItem("token")

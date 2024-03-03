@@ -70,7 +70,6 @@ let registerUser=async(data)=>{
     try {
         let userEmail = data.email
         let rawPassword = data.password
-        console.log(rawPassword,"raw password")
         let hashedPassword = await encrypt(rawPassword,10)
         
         if( await userExists(userEmail)){

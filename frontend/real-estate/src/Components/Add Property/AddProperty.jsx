@@ -73,11 +73,7 @@ export function FormNavigation({setCurrentForm,currentForm}){
 
     const handleCurrentForm = (e)=>{
         if(e.target.className=='clickable'){
-            console.log("true")
             setCurrentForm(e.target.id)
-
-            console.log("current form changed")
-            console.log(e.target.id)
         }
        
     }
@@ -135,8 +131,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
                 },
             });
             let url= import.meta.env.VITE_BASE_ENDPOINT_URL+response.data.url
-            console.log(url,"hardcoded url")
-            console.log(response.data.url,"response url")
+
             setFormData(data => ({
                 ...data,
                 imageUrl: url
@@ -209,21 +204,18 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         const validdata=()=>{
             try {
             const dataVerify=(key)=>{
-                console.log(key)
+               
                 if (key=="imageUrl") {
-                    console.log("img");
-                    console.log(formData.imageUrl)
+                    
                     if (formData.imageUrl=="") {
                         return ["Please add image in General Info",false]
                     }
                     return ["",true]
                 }
-                let Selectedform=Object.keys(formData[key]);
 
-                
+                let Selectedform=Object.keys(formData[key]);
                
                 for (let index = 0; index < Selectedform.length; index++) {
-                    console.log(key,"k",Selectedform[index],"s",formData[key][Selectedform[index]]);
                     
                     if(formData[key][Selectedform[index]]==""){
                         return ["In "+key  +" Info "+Selectedform[index]+" is empty",false]
@@ -234,9 +226,7 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
 
             }
             let arr=Object.keys(formData);
-            console.log(arr)
              for (let index = 0; index < arr.length; index++) {
-                console.log(arr)
 
            let [mess,res]  = dataVerify(arr[index]);
             if (res==false) {
@@ -263,12 +253,6 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
         let token = localStorage.getItem('token')
         //populate random values
         populatePropertyListData()
-   
-        // let url = await uploadImg(propertyImage)
-
-        //add image url on add property request
-        // setFormData({...formData,imageUrl:url})
-        // console.log(formData)
 
         if(ppdId){
             let editPropertyUrl = `${import.meta.env.VITE_EDIT_PROPERTY_ENDPOINT_URL}/${ppdId}`
@@ -288,7 +272,6 @@ export const FormComponent = ({ formFields,currentForm,setCurrentForm,setFormDat
 
             if(updatedProperty.ok){
                 alert("successfully updated document")
-                console.log(updatedProperty)
                 setUpdated(prev=>!prev)
             }
             return
