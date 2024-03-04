@@ -200,5 +200,25 @@ router.put('/edit-property/:ppdId',dbFun.authUser, async (req,res)=>{
     }
 })
 
+router.delete('/delete-property/:ppdId',dbFun.authUser, async(req,res)=>{
+    let userId = req.user._id
+    let ppdId = req.params.ppdId
+    
+    try{
+        let result = await propertyModel.deleteOne({ppdId:ppdId,owner:userId})
+
+        if (result.deletedCount === 0) {
+            res.status(404).json({ status: 'failure', message: 'No such document' });
+        } 
+        
+        else {
+            res.status(204).end(); 
+        }
+    }
+    catch(error){
+        res.status(500).json({status:'failure',message:error.message})   
+    }
+})
+
 
 module.exports = router

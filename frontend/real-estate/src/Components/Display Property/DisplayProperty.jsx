@@ -6,7 +6,7 @@ import { Loader } from "../Loader/Loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
-export function DisplayProperty(){
+export function DisplayProperty({setUpdated}){
     let navigate = useNavigate()
     let {ppdId} = useParams()
     const [displayProperty,setDisplayProperty] = useState({basic: {}, details: {}, general: {}, location: {}, imageUrl: ""})
@@ -55,11 +55,11 @@ export function DisplayProperty(){
     return isLoading ? (
         <Loader/>
     ) : (
-        <PropertyDetails displayProperty={displayProperty} ppdId={ppdId} />
+        <PropertyDetails displayProperty={displayProperty} ppdId={ppdId} setUpdated={setUpdated} />
     );
 }
 
-function PropertyDetails({displayProperty,ppdId}){
+function PropertyDetails({displayProperty,ppdId,setUpdated}){
     let navigate = useNavigate()
     const [displayBackupImage,setDisplayBackupImage] = useState(true)
 
@@ -74,6 +74,44 @@ function PropertyDetails({displayProperty,ppdId}){
 
     const loadBackupImage = ()=>{
         setDisplayBackupImage(false)
+    }
+
+    const handleDeleteProperty = async ()=>{
+        let deletePropertyUrl = `${import.meta.env.VITE_DELETE_PROPERTY_ENDPOINT_URL}${ppdId}`
+        let token = localStorage.getItem('token')
+
+        if(!token){
+            navigate("/login")
+            return
+        }
+
+        try{
+            let response = await fetch(deletePropertyUrl,{
+                method:'DELETE',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+    
+            if(!response.ok){
+                alert("unable to delete property")
+                console.log(response.statusText)
+                return
+            }
+
+            if(response.status===204){
+                alert("deleted property successfully")
+                setUpdated(prev=>!prev)
+                navigate("/")
+                return
+            }
+        }
+
+        catch(error){
+            console.log("unable to delete",error)
+            return
+        }
     }
 
     return <>
@@ -91,6 +129,7 @@ function PropertyDetails({displayProperty,ppdId}){
         <div className="button-container">
             <button className="edit-property-button" onClick={handleEditProperty}>Edit</button>
             <button className="goto-home-button" onClick={handleGoHome}>Home</button>
+            <button className="delete-property-button" onClick={handleDeleteProperty}>Delete</button>
         </div>
     </div>
     </>

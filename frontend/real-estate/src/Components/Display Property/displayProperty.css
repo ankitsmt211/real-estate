@@ -94,7 +94,7 @@
     gap: 40px;
 }
 
-.edit-property-button,.goto-home-button {
+.edit-property-button,.goto-home-button,.delete-property-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,7 +110,7 @@
     height: 70px;
 }
 
-.edit-property-button, .goto-home-button:hover{
+.edit-property-button, .goto-home-button, .delete-property-button:hover{
     cursor: pointer;
 }
 

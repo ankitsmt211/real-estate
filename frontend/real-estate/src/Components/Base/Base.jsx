@@ -136,7 +136,7 @@ function DashBoard(){
         <Routes>
           <Route path="/edit-property/:ppdId" element={<EditProperty setUpdated={setUpdated} setIsLoading={setIsLoading}/>}/>
           <Route path="/add-property" element={<AddProperty setUpdated={setUpdated} setIsLoading={setIsLoading}/>}/>
-          <Route path="/display-property/:ppdId" element={<DisplayProperty />}/>
+          <Route path="/display-property/:ppdId" element={<DisplayProperty setUpdated={setUpdated}/>}/>
           <Route path="/" element={ isLoading?<Loader/>:<Properties dataArray={preparePropertyList()}/>}/>
         </Routes>
         {/* <Properties dataArray={data} />  */}
